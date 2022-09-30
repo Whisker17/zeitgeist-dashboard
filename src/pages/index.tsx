@@ -1,12 +1,14 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import type { NextPage } from "next";
+import { Flex, SimpleGrid } from "@chakra-ui/react";
+
+import Header from "../components/Header";
 
 const Home: NextPage = () => {
   return (
-    
-  )
-}
+    <Flex direction="column" h="100vh">
+      <Header />
+    </Flex>
+  );
+};
 
-export default Home
+export default Home;
