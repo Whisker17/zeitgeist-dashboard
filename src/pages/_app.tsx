@@ -2,14 +2,14 @@ import { AppProps } from "next/app";
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "../styles/theme";
 
-import { SideBarDrawerProvider } from "../hooks/SideBarDrawerContext";
+import Layout from "../components/layout/Layout";
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <ChakraProvider theme={theme}>
-      <SideBarDrawerProvider>
+      <Layout>
         <Component {...pageProps} />
-      </SideBarDrawerProvider>
+      </Layout>
     </ChakraProvider>
   );
 }
