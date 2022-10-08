@@ -7,7 +7,6 @@ import {
   DrawerOverlay,
 } from "@chakra-ui/modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { ReactElement } from "react";
 
 import Logo from "./Logo";
 
