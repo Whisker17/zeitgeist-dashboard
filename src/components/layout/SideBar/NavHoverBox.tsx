@@ -1,9 +1,10 @@
 import React from "react";
 import { Flex, Heading, Text, Icon } from "@chakra-ui/react";
+import { IconType } from "react-icons/lib";
 
 interface NavHoverBox {
   title: string;
-  icon: string;
+  icon: IconType;
   description: string;
 }
 
@@ -23,7 +24,6 @@ function NavHoverBox({ title, icon, description }: NavHoverBox): JSX.Element {
       <Flex
         h={200}
         w={200}
-        w="100%"
         flexDir="column"
         alignItems="center"
         justify="center"
