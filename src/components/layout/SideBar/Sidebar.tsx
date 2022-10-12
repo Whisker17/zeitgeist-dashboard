@@ -41,6 +41,7 @@ export default function Sidebar() {
         as="nav"
       >
         <IconButton
+          aria-label="Bars"
           background="none"
           mt={5}
           _hover={{ background: "none" }}

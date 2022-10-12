@@ -12,15 +12,15 @@ function Footer() {
       pb={[12, 8]}
     >
       <HStack>
-        <Text color="whiteAlpha.600">{t.common.made_with}</Text>
+        <Text color="whiteAlpha.600">{"Made with"}</Text>
         <Text>❤️</Text>
-        <Text color="whiteAlpha.600">{t.common.by}</Text>
+        <Text color="whiteAlpha.600">{"by"}</Text>
         <Link
           _hover={{ textDecoration: "none" }}
           isExternal
-          href="https://twitter.com/alpharoad_fi"
+          href="https://twitter.com/ZeitgeistPM"
         >
-          {t.common.alpha_road_team}
+          {"Zeitgeist Community"}
         </Link>
       </HStack>
     </Flex>

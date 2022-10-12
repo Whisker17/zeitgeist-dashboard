@@ -2,13 +2,13 @@ import React from "react";
 import { Flex, Heading, Text, Icon } from "@chakra-ui/react";
 import { IconType } from "react-icons/lib";
 
-interface NavHoverBox {
+interface iNavHoverBox {
   title: string;
   icon: IconType;
-  description: string;
+  description?: string;
 }
 
-function NavHoverBox({ title, icon, description }: NavHoverBox): JSX.Element {
+function NavHoverBox({ title, icon, description }: iNavHoverBox): JSX.Element {
   return (
     <>
       <Flex

@@ -2,6 +2,8 @@ import { Box, Flex } from "@chakra-ui/layout";
 import type { ReactNode } from "react";
 
 import Header from "./Header";
+import Footer from "./Footer";
+import Sidebar from "./SideBar/Sidebar";
 
 type LayoutProps = {
   children: ReactNode;
@@ -49,6 +51,10 @@ function Layout({ children }: LayoutProps) {
         >
           {children}
         </Flex>
+        <Footer />
+      </Flex>
+      <Flex>
+        <Sidebar></Sidebar>
       </Flex>
     </>
   );

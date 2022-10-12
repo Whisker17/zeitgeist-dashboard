@@ -1,8 +1,7 @@
 import type { NextPage } from "next";
 import { Flex, SimpleGrid } from "@chakra-ui/react";
 
-import Header from "../components/Header";
-import DarkModeSwitch from "../components/DarkMode/DarkModeSwitch";
+import Header from "../components/layout/Header";
 
 const Home: NextPage = () => {
   return (
