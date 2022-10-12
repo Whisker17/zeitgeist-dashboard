@@ -7,9 +7,11 @@ import Layout from "../components/layout/Layout";
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <ChakraProvider theme={theme}>
-      <Layout>
+      {/* <Layout>
         <Component {...pageProps} />
-      </Layout>
+      </Layout> */}
+
+      <Component {...pageProps} />
     </ChakraProvider>
   );
 }

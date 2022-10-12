@@ -56,8 +56,9 @@ export default function Sidebar() {
           icon={FiHome}
           title="Dashboard"
           description="This is the description for the dashboard."
+          active
         />
-        <NavItem navSize={navSize} icon={FiCalendar} title="Calendar" active />
+        <NavItem navSize={navSize} icon={FiCalendar} title="Calendar" />
         <NavItem navSize={navSize} icon={FiUser} title="Clients" />
         <NavItem navSize={navSize} icon={IoPawOutline} title="Animals" />
         <NavItem navSize={navSize} icon={FiDollarSign} title="Stocks" />

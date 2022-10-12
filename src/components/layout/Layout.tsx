@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/layout";
+import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/layout";
 import type { ReactNode } from "react";
 
 import Header from "./Header";
@@ -51,10 +51,18 @@ function Layout({ children }: LayoutProps) {
         >
           {children}
         </Flex>
-        <Footer />
-      </Flex>
-      <Flex>
-        <Sidebar></Sidebar>
+
+        <Flex>
+          <Sidebar></Sidebar>
+        </Flex>
+
+        <Box
+          w="full"
+          paddingLeft={{ sm: 0, md: "0%" }}
+          paddingRight={{ sm: 0, md: "10%" }}
+        >
+          <Footer />
+        </Box>
       </Flex>
     </>
   );
