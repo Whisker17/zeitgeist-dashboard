@@ -25,9 +25,10 @@ export default function Sidebar() {
       pos="sticky"
       left="5"
       h="95vh"
-      marginTop="2.5vh"
+      marginTop="10vh"
       boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
       borderRadius={navSize == "small" ? "15px" : "30px"}
+      borderColor="white"
       w={navSize == "small" ? "75px" : "200px"}
       flexDir="column"
       justifyContent="space-between"

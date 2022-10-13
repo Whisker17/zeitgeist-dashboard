@@ -36,7 +36,6 @@ export default function NavItem({
     >
       <Menu placement="right">
         <Link
-          backgroundColor={active == true ? "#27aaf5cc" : "#gray.500"}
           p={3}
           borderRadius={8}
           _hover={{ textDecor: "none", backgroundColor: "#27aaf5cc" }}
@@ -49,7 +48,7 @@ export default function NavItem({
                 fontSize="xl"
                 color={active ? "#27aaf5cc" : "gray.500"}
               />
-              <Text ml={5} display={navSize == "small" ? "none" : "flex"}>
+              <Text as='b' ml={5} display={navSize == "small" ? "none" : "flex"} color={active ? "#27aaf5cc" : "gray.500"}>
                 {title}
               </Text>
             </Flex>
