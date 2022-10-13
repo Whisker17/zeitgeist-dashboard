@@ -24,14 +24,13 @@ export default function Sidebar() {
     <Flex
       pos="sticky"
       left="5"
-      h="95vh"
+      h="50vh"
       marginTop="10vh"
-      boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
+      boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.5)"
       borderRadius={navSize == "small" ? "15px" : "30px"}
-      borderColor="white"
       w={navSize == "small" ? "75px" : "200px"}
       flexDir="column"
-      justifyContent="space-between"
+      justifyContent="space-evenly"
     >
       <Flex
         p="5%"

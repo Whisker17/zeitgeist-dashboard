@@ -52,8 +52,14 @@ function Layout({ children }: LayoutProps) {
           {children}
         </Flex>
 
-        <Flex>
-          <Sidebar></Sidebar>
+        <Flex
+          flex="1 1 auto"
+          as="main"
+          align="flex-start"
+          justify="between-space"
+          mt={24}
+        >
+          <Sidebar />
         </Flex>
 
         <Box
