@@ -36,10 +36,10 @@ export default function NavItem({
     >
       <Menu placement="right">
         <Link
-          backgroundColor={active == true ? "#AEC8CA" : "#FFFFFF"}
+          backgroundColor={active == true ? "#27aaf5cc" : "#gray.500"}
           p={3}
           borderRadius={8}
-          _hover={{ textDecor: "none", backgroundColor: "#AEC8CA" }}
+          _hover={{ textDecor: "none", backgroundColor: "#27aaf5cc" }}
           w={navSize == "large" ? "100%" : "75px"}
         >
           <MenuButton w="100%">
@@ -47,7 +47,7 @@ export default function NavItem({
               <Icon
                 as={icon}
                 fontSize="xl"
-                color={active ? "#82AAAD" : "gray.500"}
+                color={active ? "#27aaf5cc" : "gray.500"}
               />
               <Text ml={5} display={navSize == "small" ? "none" : "flex"}>
                 {title}

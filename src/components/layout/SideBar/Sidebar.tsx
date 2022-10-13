@@ -8,15 +8,14 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import {
-  FiMenu,
-  FiHome,
-  FiCalendar,
-  FiUser,
-  FiDollarSign,
-  FiBriefcase,
-  FiSettings,
-} from "react-icons/fi";
-import { IoPawOutline } from "react-icons/io5";
+  AiOutlineMenu,
+  AiOutlineHome,
+  AiOutlineUser,
+  AiOutlineTransaction,
+  AiOutlineDashboard,
+  AiOutlineFork,
+} from "react-icons/ai";
+
 import NavItem from "./NavItem";
 
 export default function Sidebar() {
@@ -45,7 +44,7 @@ export default function Sidebar() {
           background="none"
           mt={5}
           _hover={{ background: "none" }}
-          icon={<FiMenu />}
+          icon={<AiOutlineMenu />}
           onClick={() => {
             if (navSize == "small") changeNavSize("large");
             else changeNavSize("small");
@@ -53,40 +52,23 @@ export default function Sidebar() {
         />
         <NavItem
           navSize={navSize}
-          icon={FiHome}
-          title="Dashboard"
+          icon={AiOutlineHome}
+          title="Overviews"
           description="This is the description for the dashboard."
           active
         />
-        <NavItem navSize={navSize} icon={FiCalendar} title="Calendar" />
-        <NavItem navSize={navSize} icon={FiUser} title="Clients" />
-        <NavItem navSize={navSize} icon={IoPawOutline} title="Animals" />
-        <NavItem navSize={navSize} icon={FiDollarSign} title="Stocks" />
-        <NavItem navSize={navSize} icon={FiBriefcase} title="Reports" />
-        <NavItem navSize={navSize} icon={FiSettings} title="Settings" />
-      </Flex>
-
-      <Flex
-        p="5%"
-        flexDir="column"
-        w="100%"
-        alignItems={navSize == "small" ? "center" : "flex-start"}
-        mb={4}
-      >
-        <Divider display={navSize == "small" ? "none" : "flex"} />
-        <Flex mt={4} align="center">
-          <Avatar size="sm" src="avatar-1.jpg" />
-          <Flex
-            flexDir="column"
-            ml={4}
-            display={navSize == "small" ? "none" : "flex"}
-          >
-            <Heading as="h3" size="sm">
-              Sylwia Weller
-            </Heading>
-            <Text color="gray">Admin</Text>
-          </Flex>
-        </Flex>
+        <NavItem navSize={navSize} icon={AiOutlineUser} title="Users" />
+        <NavItem
+          navSize={navSize}
+          icon={AiOutlineTransaction}
+          title="Transactions"
+        />
+        <NavItem
+          navSize={navSize}
+          icon={AiOutlineDashboard}
+          title="Leaderboard"
+        />
+        <NavItem navSize={navSize} icon={AiOutlineFork} title="Ecosystems" />
       </Flex>
     </Flex>
   );
