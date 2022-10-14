@@ -42,7 +42,7 @@ function Layout({ children }: LayoutProps) {
             <Header />
           </Box>
         </Box>
-        <Flex
+        {/* <Flex
           flex="1 1 auto"
           as="main"
           align="flex-start"
@@ -50,7 +50,7 @@ function Layout({ children }: LayoutProps) {
           mt={24}
         >
           {children}
-        </Flex>
+        </Flex> */}
 
         <Flex
           flex="1 1 auto"
