@@ -58,6 +58,7 @@ function Layout({ children }: LayoutProps) {
           align="flex-start"
           justify="between-space"
           mt={24}
+          width="100"
         >
           <Sidebar />
         </Flex>

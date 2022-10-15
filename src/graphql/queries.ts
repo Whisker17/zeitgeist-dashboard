@@ -4,10 +4,10 @@ import { gql } from "graphql-request";
 export const GET_TVL = gql`
   {
     query_poolsVolume {
-      pools {
-        poolId
+      pools(where: { poolStatus_eq: "Active" }) {
         ztgQty
-        poolStatus
+        volume
+        poolId
       }
     }
   }
