@@ -4,6 +4,8 @@ import type { ReactNode } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "./SideBar/Sidebar";
+import CountPaper from "../metrics/count-papers";
+import MetricsPage from "./Statistics/Overviews/Overviews";
 
 type LayoutProps = {
   children: ReactNode;
@@ -42,16 +44,6 @@ function Layout({ children }: LayoutProps) {
             <Header />
           </Box>
         </Box>
-        {/* <Flex
-          flex="1 1 auto"
-          as="main"
-          align="flex-start"
-          justify="center"
-          mt={24}
-        >
-          {children}
-        </Flex> */}
-
         <Flex
           flex="1 1 auto"
           as="main"
@@ -59,8 +51,16 @@ function Layout({ children }: LayoutProps) {
           justify="between-space"
           mt={24}
           width="100"
+          marginTop={"55px"}
         >
-          <Sidebar />
+          {/* SideBar */}
+          <Flex align="flex-start" justify="between-space" mt={24} width="100">
+            <Sidebar />
+          </Flex>
+
+          <Flex marginLeft={"70px"} w="full">
+            <MetricsPage />
+          </Flex>
         </Flex>
 
         <Box
