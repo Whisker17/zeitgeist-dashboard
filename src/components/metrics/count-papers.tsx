@@ -16,7 +16,7 @@ const CountPaper: FC<Props> = ({ count, label }) => (
     textAlign="center"
     w="30vh"
   >
-    <Text mt={2} fontSize="xl" color="whiteAlpha.600">
+    <Text mt={2} fontSize="xl" color="whiteAlpha.600" fontWeight="bold">
       {label}
     </Text>
     <Text fontSize="3xl" fontWeight="bold">
