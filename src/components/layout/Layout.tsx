@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "./SideBar/Sidebar";
-import CountPaper from "../metrics/count-papers";
 import MetricsPage from "./Statistics/Overviews/Overviews";
 
 type LayoutProps = {
@@ -63,10 +62,11 @@ function Layout({ children }: LayoutProps) {
           </Flex>
         </Flex>
 
+        {/* Footer */}
         <Box
           w="full"
           paddingLeft={{ sm: 0, md: "0%" }}
-          paddingRight={{ sm: 0, md: "10%" }}
+          paddingRight={{ sm: 0, md: "30%" }}
         >
           <Footer />
         </Box>

@@ -13,7 +13,7 @@ function Logo({ justify = "flex-start" }: LogoProps) {
           <Image src="/zeitgeist-logo.jpg" alt="Zeitgeist Logo" />
         </Box>
         <Text ml={3} fontSize="lg" fontWeight="bold">
-          Zeitgeist
+          Zeitgeist - Infos
         </Text>
       </Flex>
     </Link>

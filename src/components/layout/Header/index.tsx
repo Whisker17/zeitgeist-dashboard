@@ -1,6 +1,6 @@
-import { Box, Flex, HStack, Link } from "@chakra-ui/layout";
+import { Flex, HStack, Link } from "@chakra-ui/layout";
 import { Button, Hide } from "@chakra-ui/react";
-import { brands, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
@@ -10,10 +10,9 @@ import Drawer from "./Drawer";
 export default function Header(): JSX.Element {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
 
-  const githubLink = "https://github.com/Whisker17/zeitgeist-dashboard";
-  const telegramLink = "https://t.me/zeitgeist_official";
-  const twitterLink = "https://twitter.com/ZeitgeistPM";
-  const discordLink = "https://discord.com/invite/xv8HuA4s8v";
+  const marketsLink = "";
+  const metricsLink = "";
+  const ecosystemLink = "";
 
   return (
     <Flex
@@ -27,18 +26,15 @@ export default function Header(): JSX.Element {
       <Logo />
       <Hide below="md">
         <Flex direction="row">
-          <HStack spacing={4} mr={2}>
-            <Link isExternal href={twitterLink}>
-              <FontAwesomeIcon fontSize="24px" icon={brands("twitter")} />
+          <HStack spacing={16} mr={2}>
+            <Link href={marketsLink} fontWeight="bolder">
+              Markets
             </Link>
-            <Link isExternal href={telegramLink}>
-              <FontAwesomeIcon fontSize="24px" icon={brands("telegram")} />
+            <Link href={metricsLink} fontWeight="bolder">
+              Metrics
             </Link>
-            <Link isExternal href={githubLink}>
-              <FontAwesomeIcon fontSize="24px" icon={brands("github")} />
-            </Link>
-            <Link isExternal href={discordLink}>
-              <FontAwesomeIcon fontSize="24px" icon={brands("discord")} />
+            <Link href={ecosystemLink} fontWeight="bolder">
+              Ecosystem
             </Link>
           </HStack>
         </Flex>
@@ -51,28 +47,16 @@ export default function Header(): JSX.Element {
           <Drawer
             links={[
               {
-                href: twitterLink,
-                icon: brands("twitter"),
-                label: "Twitter",
-                isExternal: true,
+                href: marketsLink,
+                label: "Markets",
               },
               {
-                href: telegramLink,
-                icon: brands("telegram"),
-                label: "Telegram",
-                isExternal: true,
+                href: metricsLink,
+                label: "Metrics",
               },
               {
-                href: githubLink,
-                icon: brands("github"),
-                label: "Github",
-                isExternal: true,
-              },
-              {
-                href: discordLink,
-                icon: brands("discord"),
-                label: "Discord",
-                isExternal: true,
+                href: ecosystemLink,
+                label: "Ecosystem",
               },
             ]}
             isOpen={isDrawerOpen}

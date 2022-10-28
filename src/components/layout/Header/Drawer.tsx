@@ -6,12 +6,11 @@ import {
   DrawerHeader,
   DrawerOverlay,
 } from "@chakra-ui/modal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Logo from "./Logo";
 
 interface DrawerProps {
-  links: { href: string; label: string; icon?: any; isExternal?: boolean }[];
+  links: { href: string; label: string }[];
   isOpen: boolean;
   onClose: () => void;
 }
@@ -32,19 +31,17 @@ function Drawer({ links, isOpen, onClose }: DrawerProps) {
         </DrawerHeader>
         <DrawerBody>
           <Flex direction="column" justify="center" align="flex-start">
-            {links.map(({ href, label, icon, isExternal }) => {
+            {links.map(({ href, label }) => {
               return (
                 <Link
                   w="full"
                   key={`drawer-item-${label}`}
                   py={2}
                   style={{ textDecoration: "none" }}
-                  isExternal={isExternal}
                   href={href}
                 >
                   <HStack justifyContent="space-between">
                     <Text>{label}</Text>
-                    {icon && <FontAwesomeIcon fontSize="24px" icon={icon} />}
                   </HStack>
                 </Link>
               );
