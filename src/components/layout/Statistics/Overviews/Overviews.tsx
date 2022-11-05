@@ -22,11 +22,13 @@ const MetricsPage: FC = () => {
           Zeitgeist Overviews
         </Text>
       </Box>
+      {/* Stats */}
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 4 }} spacing={400} mb={8}>
         <CountPaper count={2} label={`Total Value Locked (USD)`} />
         <CountPaper count={2} label={`Change`} />
         <CountPaper count={2} label={`APR`} />
       </SimpleGrid>
+      {/* Chart */}
     </Box>
   );
 };

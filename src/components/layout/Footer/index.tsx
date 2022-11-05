@@ -2,7 +2,6 @@ import { Flex, HStack, Link, Text } from "@chakra-ui/layout";
 import { ReactNode } from "react";
 import {
   Button,
-  Hide,
   VisuallyHidden,
   useColorModeValue,
   Box,
@@ -51,10 +50,12 @@ function Footer() {
   const discordLink = "https://discord.com/invite/xv8HuA4s8v";
 
   return (
-    <Box>
+    <Box
+      w={"8xl"}
+    >
       <Container
         as={Stack}
-        maxW={"6xl"}
+        maxW={"8xl"}
         py={4}
         direction={{ base: "column", md: "row" }}
         spacing={4}

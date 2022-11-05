@@ -5,7 +5,7 @@ import { Box, Flex, Text } from "@chakra-ui/layout";
 interface LogoProps {
   justify?: "flex-start" | "center" | "flex-end";
 }
-function Logo({ justify = "flex-start" }: LogoProps) {
+function Logo({ justify = "flex-start"  }: LogoProps) {
   return (
     <Link href="/" passHref>
       <Flex direction="row" align="center" justify={justify} cursor="pointer">

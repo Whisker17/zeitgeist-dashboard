@@ -3,6 +3,7 @@ import { Button, Hide } from "@chakra-ui/react";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 import Logo from "./Logo";
 import Drawer from "./Drawer";

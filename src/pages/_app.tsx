@@ -1,19 +1,18 @@
 import { AppProps } from "next/app";
 import { ChakraProvider } from "@chakra-ui/react";
-import { theme } from "../styles/theme";
+import customTheme from "../styles/customTheme";
+import "../styles/globals.css";
 
 import Layout from "../components/layout/Layout";
 
-function MyApp({ Component, pageProps }: AppProps): JSX.Element {
+function ZeitgeistInfos({ Component, pageProps }: AppProps): JSX.Element {
   return (
-    <ChakraProvider theme={theme}>
-      {/* <Layout>
+    <ChakraProvider theme={customTheme}>
+      <Layout>
         <Component {...pageProps} />
-      </Layout> */}
-
-      <Component {...pageProps} />
+      </Layout>
     </ChakraProvider>
   );
 }
 
-export default MyApp;
+export default ZeitgeistInfos;
