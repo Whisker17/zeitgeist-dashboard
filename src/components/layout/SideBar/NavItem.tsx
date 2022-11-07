@@ -1,6 +1,6 @@
 import React from "react";
-import Box from "@chakra-ui/layout"
 import {
+  Box,
   Flex,
   Text,
   Link,
@@ -10,8 +10,6 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { IconType } from "react-icons/lib";
 
 export interface iNavItem {
   children: any;
