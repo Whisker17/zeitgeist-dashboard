@@ -15,8 +15,19 @@ import {
   AiOutlineDashboard,
   AiOutlineFork,
 } from "react-icons/ai";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import NavItem from "./NavItem";
+
+const icons = {
+  home: solid("home"),
+  "people-group": solid("people-group"),
+  pen: solid("pen"),
+  "screwdriver-wrench": solid("screwdriver-wrench"),
+  gamepad: solid("gamepad"),
+  wallet: solid("wallet"),
+};
 
 export default function Sidebar() {
   const [navSize, changeNavSize] = useState("large");
@@ -53,22 +64,21 @@ export default function Sidebar() {
         <NavItem
           navSize={navSize}
           icon={AiOutlineHome}
-          title="Overviews"
-          description="This is the description for the dashboard."
+          text="Overviews"
           active
         />
-        <NavItem navSize={navSize} icon={AiOutlineUser} title="Users" />
+        <NavItem navSize={navSize} icon={AiOutlineUser} text="Users" />
         <NavItem
           navSize={navSize}
           icon={AiOutlineTransaction}
-          title="Transactions"
+          text="Transactions"
         />
         <NavItem
           navSize={navSize}
           icon={AiOutlineDashboard}
-          title="Leaderboard"
+          text="Leaderboard"
         />
-        <NavItem navSize={navSize} icon={AiOutlineFork} title="Ecosystems" />
+        <NavItem navSize={navSize} icon={AiOutlineFork} text="Ecosystems" />
       </Flex>
     </Flex>
   );

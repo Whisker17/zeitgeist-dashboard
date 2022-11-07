@@ -6,8 +6,6 @@ import { useEffect, useState } from "react";
 
 import CountPaper from "../../../metrics/count-papers";
 
-const npmRepoToFollow = { name: "starknet", label: "starknet.js" };
-
 const MetricsPage: FC = () => {
   return (
     <Box w="100vh">

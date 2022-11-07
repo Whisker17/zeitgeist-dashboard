@@ -1,10 +1,13 @@
 import React from "react";
 import {
   Box,
+  Button,
   Flex,
   Text,
   Link,
   Menu,
+  MenuList,
+  MenuGroup,
   MenuItem,
   MenuButton,
   Icon,
@@ -21,12 +24,11 @@ export interface iNavItem {
 interface NavItemsProps {
   menus: iNavItem[];
   text?: string;
-  mainGroupTitle?: string;
   icon?: any;
   navSize: string;
 }
 
-export default function NavItem({ menus, text, mainGroupTitle, icon, navSize }: NavItemsProps) {
+export default function NavItem({ menus, text, icon, navSize }: NavItemsProps) {
   const renderMenus = (menusToRender: iNavItem[]) => {
     return menusToRender.map((menu, index: number) => {
       const { children, icon: menuItemIcon, href, onSelect } = menu;
@@ -69,33 +71,63 @@ export default function NavItem({ menus, text, mainGroupTitle, icon, navSize }: 
     });
   };
   return (
-    <Flex
-      mt={30}
-      flexDir="column"
-      w="100%"
-      alignItems={navSize == "small" ? "center" : "flex-start"}
+    // <Flex
+    //   mt={30}
+    //   flexDir="column"
+    //   w="100%"
+    //   alignItems={navSize == "small" ? "center" : "flex-start"}
+    // >
+    //   <Menu placement="right">
+    //     <Link
+    //       p={3}
+    //       borderRadius={8}
+    //       _hover={{ textDecor: "none", backgroundColor: "#27aaf5cc" }}
+    //       w={navSize == "large" ? "100%" : "75px"}
+    //     >
+    //       <MenuButton w="100%">
+    //         <Flex>
+    //           <Icon
+    //             as={icon}
+    //             fontSize="xl"
+    //             color={active ? "#27aaf5cc" : "gray.500"}
+    //           />
+    //           <Text
+    //             as="b"
+    //             ml={5}
+    //             display={navSize == "small" ? "none" : "flex"}
+    //             color={active ? "#27aaf5cc" : "gray.500"}
+    //           >
+    //             {title}
+    //           </Text>
+    //         </Flex>
+    //       </MenuButton>
+    //     </Link>
+    //   </Menu>
+    // </Flex>
+    <Menu
+      strategy="absolute"
+      autoSelect={true}
+      isLazy
+      id="more-menu-id"
+      placement="auto"
     >
-      <Menu placement="right">
-        <Link
-          p={3}
-          borderRadius={8}
-          _hover={{ textDecor: "none", backgroundColor: "#27aaf5cc" }}
-          w={navSize == "large" ? "100%" : "75px"}
-        >
-          <MenuButton w="100%">
-            <Flex>
-              <Icon
-                as={icon}
-                fontSize="xl"
-                color={active ? "#27aaf5cc" : "gray.500"}
-              />
-              <Text as='b' ml={5} display={navSize == "small" ? "none" : "flex"} color={active ? "#27aaf5cc" : "gray.500"}>
-                {title}
-              </Text>
-            </Flex>
-          </MenuButton>
-        </Link>
-      </Menu>
-    </Flex>
+      <MenuButton as={Button}>
+        <Flex direction="row" align="center" justify="center">
+          {text && (
+            <Text
+              fontSize="14px"
+              pr={2}
+              display={navSize == "small" ? "none" : "flex"}
+            >
+              {text}
+            </Text>
+          )}
+          <FontAwesomeIcon icon={icon} fontSize={text ? "10px" : "16px"} />
+        </Flex>
+      </MenuButton>
+      <MenuList zIndex={2}>
+        <MenuGroup>{renderMenus(menus)}</MenuGroup>
+      </MenuList>
+    </Menu>
   );
 }

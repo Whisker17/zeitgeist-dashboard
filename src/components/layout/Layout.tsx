@@ -3,8 +3,6 @@ import type { ReactNode } from "react";
 
 import Header from "./Header";
 import Footer from "./Footer";
-import Sidebar from "./SideBar/Sidebar";
-import MetricsPage from "./Statistics/Overviews/Overviews";
 
 type LayoutProps = {
   children: ReactNode;
@@ -16,6 +14,7 @@ function Layout({ children }: LayoutProps) {
       <Flex
         zIndex={1}
         position="relative"
+        maxW="2100px"
         width={{ sm: "100%", md: "80%" }}
         px={{ sm: 4, md: 0 }}
         direction="column"
@@ -26,50 +25,26 @@ function Layout({ children }: LayoutProps) {
       >
         <Box
           width="full"
-          position="fixed"
           left={0}
           right={0}
-          paddingLeft={{ sm: 0, md: "10%" }}
-          px={{ sm: 4, md: 0 }}
+          paddingLeft={0}
+          px={[4, 0]}
           transition="background-color .2s ease-in"
-          bgColor="black"
           zIndex={2000}
         >
-          <Box
-            w="full"
-            paddingLeft={{ sm: 0, md: "10%" }}
-            paddingRight={{ sm: 0, md: "10%" }}
-          >
-            <Header />
-          </Box>
+          <Header />
         </Box>
         <Flex
           flex="1 1 auto"
           as="main"
           align="flex-start"
-          justify="between-space"
+          justify="center"
           mt={24}
-          width="100"
-          marginTop={"55px"}
+          px={[4, 0]}
         >
-          {/* SideBar */}
-          <Flex align="flex-start" justify="between-space" mt={24} width="100">
-            <Sidebar />
-          </Flex>
-
-          <Flex marginLeft={"70px"} w="full">
-            <MetricsPage />
-          </Flex>
+          {children}
         </Flex>
-
-        {/* Footer */}
-        <Box
-          w="full"
-          paddingLeft={{ sm: 0, md: "0%" }}
-          paddingRight={{ sm: 0, md: "30%" }}
-        >
-          <Footer />
-        </Box>
+        <Footer />
       </Flex>
     </>
   );
