@@ -25,10 +25,9 @@ interface NavItemsProps {
   menus: iNavItem[];
   text?: string;
   icon?: any;
-  navSize: string;
 }
 
-export default function NavItem({ menus, text, icon, navSize }: NavItemsProps) {
+export default function NavItem({ menus, text, icon }: NavItemsProps) {
   const renderMenus = (menusToRender: iNavItem[]) => {
     return menusToRender.map((menu, index: number) => {
       const { children, icon: menuItemIcon, href, onSelect } = menu;
@@ -114,11 +113,7 @@ export default function NavItem({ menus, text, icon, navSize }: NavItemsProps) {
       <MenuButton as={Button}>
         <Flex direction="row" align="center" justify="center">
           {text && (
-            <Text
-              fontSize="14px"
-              pr={2}
-              display={navSize == "small" ? "none" : "flex"}
-            >
+            <Text fontSize="14px" pr={2}>
               {text}
             </Text>
           )}

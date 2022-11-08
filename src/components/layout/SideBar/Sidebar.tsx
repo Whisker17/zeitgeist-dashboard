@@ -3,7 +3,7 @@ import {
   Flex,
   Text,
   IconButton,
-  Divider,
+  Show,
   Avatar,
   Heading,
 } from "@chakra-ui/react";
@@ -57,9 +57,22 @@ export default function Sidebar({
     onChange(newTag);
   };
 
+  const getIndicationText = () => {
+    if (childCount < 0) {
+      return "";
+    }
+    if (childCount > 100) {
+      return "100+";
+    }
+    return childCount;
+  };
+
   const renderMobileMenu = () => {
     return (
       <Flex w="full" align="center" justify="space-between">
+        <Text>
+          {getIndicationText()} {typeText}
+        </Text>
         <NavItem
           menus={tags.map((tag) => {
             return {
@@ -70,7 +83,6 @@ export default function Sidebar({
           })}
           icon={icon || solid("chevron-down")}
           text={selectedValue.label}
-          navSize="small"
         />
       </Flex>
     );
@@ -116,7 +128,7 @@ export default function Sidebar({
                   <FontAwesomeIcon fontSize="18px" icon={icons[tag.icon]} />
                 </Flex>
                 <Text ml={4} fontWeight="bold" fontSize="16px">
-                  {t.tags[tag.value] || tag.label}
+                  {tag.label}
                 </Text>
               </Flex>
               {selectedValue.value === tag.value && (
@@ -134,57 +146,5 @@ export default function Sidebar({
       <Show below="md">{renderMobileMenu()}</Show>
       <Show above="md">{small ? renderMobileMenu() : renderDefaultMenu()}</Show>
     </>
-  );
-
-  return (
-    <Flex
-      pos="sticky"
-      left="5"
-      h="50vh"
-      marginTop="10vh"
-      boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.5)"
-      borderRadius={navSize == "small" ? "15px" : "30px"}
-      w={navSize == "small" ? "75px" : "200px"}
-      flexDir="column"
-      justifyContent="space-evenly"
-    >
-      <Flex
-        p="5%"
-        flexDir="column"
-        w="100%"
-        alignItems={navSize == "small" ? "center" : "flex-start"}
-        as="nav"
-      >
-        <IconButton
-          aria-label="Bars"
-          background="none"
-          mt={5}
-          _hover={{ background: "none" }}
-          icon={<AiOutlineMenu />}
-          onClick={() => {
-            if (navSize == "small") changeNavSize("large");
-            else changeNavSize("small");
-          }}
-        />
-        <NavItem
-          navSize={navSize}
-          icon={AiOutlineHome}
-          text="Overviews"
-          active
-        />
-        <NavItem navSize={navSize} icon={AiOutlineUser} text="Users" />
-        <NavItem
-          navSize={navSize}
-          icon={AiOutlineTransaction}
-          text="Transactions"
-        />
-        <NavItem
-          navSize={navSize}
-          icon={AiOutlineDashboard}
-          text="Leaderboard"
-        />
-        <NavItem navSize={navSize} icon={AiOutlineFork} text="Ecosystems" />
-      </Flex>
-    </Flex>
   );
 }

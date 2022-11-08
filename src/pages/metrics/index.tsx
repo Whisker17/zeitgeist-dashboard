@@ -2,6 +2,7 @@ import { Flex, Text } from "@chakra-ui/layout";
 import type { FC, ChangeEvent } from "react";
 import { useState } from "react";
 import useInView from "react-cool-inview";
+import { MetricsCategory } from "../../../data/tag";
 
 import Menu from "../../components/layout/Menu";
 
@@ -25,7 +26,7 @@ const AcademyPage: FC = () => {
 
   const renderContent = () => {
     switch (currentCategory.value) {
-      case AcademyCategory.CONTRIBUTE:
+      case MetricsCategory.USERS:
         return (
           <ContributeContent
             resources={academyResourcesBundle.contributions}
@@ -33,7 +34,7 @@ const AcademyPage: FC = () => {
             keyword={keyword}
           />
         );
-      case AcademyCategory.TOOLS:
+      case MetricsCategory.TRANSACTIONS:
         return (
           <ToolsContent
             resources={academyResourcesBundle.tools}
@@ -41,7 +42,7 @@ const AcademyPage: FC = () => {
             keyword={keyword}
           />
         );
-      case AcademyCategory.WALLETS:
+      case MetricsCategory.APPLICATIONS:
         return (
           <WalletsContent
             resources={academyResourcesBundle.wallets}
@@ -49,7 +50,7 @@ const AcademyPage: FC = () => {
             keyword={keyword}
           />
         );
-      case AcademyCategory.NEWS_FEED:
+      case MetricsCategory.DEVS:
         return (
           <NewsInfosContent
             resources={academyResourcesBundle.newsfeed}
@@ -57,7 +58,7 @@ const AcademyPage: FC = () => {
             keyword={keyword}
           />
         );
-      case AcademyCategory.LEARNING:
+      case MetricsCategory.OVERVIEWS:
       default:
         return (
           <LearnContent
