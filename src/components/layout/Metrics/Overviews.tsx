@@ -1,4 +1,4 @@
-import { Box, HStack, Link, SimpleGrid, Text } from "@chakra-ui/layout";
+import { Box, HStack, Link, VStack, SimpleGrid, Text } from "@chakra-ui/layout";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FC } from "react";
@@ -6,9 +6,9 @@ import { useEffect, useState } from "react";
 
 import CountPaper from "../../metrics/count-papers";
 
-const Overviews: FC = () => {
+const MetricsPage: FC = () => {
   return (
-    <Box w="100vh">
+    <VStack w="full" align="flex-start">
       {/* Title */}
       <Box mb={"4"}>
         <Text
@@ -27,8 +27,8 @@ const Overviews: FC = () => {
         <CountPaper count={2} label={`APR`} />
       </SimpleGrid>
       {/* Chart */}
-    </Box>
+    </VStack>
   );
 };
 
-export default Overviews;
+export default MetricsPage;
