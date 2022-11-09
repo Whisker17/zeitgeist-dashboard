@@ -4,9 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 
-import CountPaper from "../../../metrics/count-papers";
+import CountPaper from "../../metrics/count-papers";
 
-const MetricsPage: FC = () => {
+const Overviews: FC = () => {
   return (
     <Box w="100vh">
       {/* Title */}
@@ -31,4 +31,4 @@ const MetricsPage: FC = () => {
   );
 };
 
-export default MetricsPage;
+export default Overviews;

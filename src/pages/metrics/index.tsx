@@ -5,6 +5,7 @@ import useInView from "react-cool-inview";
 import { MetricsCategory } from "../../../data/tag";
 
 import Menu from "../../components/layout/Menu";
+import Overviews from "../../components/layout/Metrics/Overviews";
 
 const AcademyPage: FC = () => {
   const [currentCategory, setCurrentCategory] = useState(allAcademyTags[0]);
@@ -61,7 +62,7 @@ const AcademyPage: FC = () => {
       case MetricsCategory.OVERVIEWS:
       default:
         return (
-          <LearnContent
+          <Overviews
             observe={observe}
             highlightedResources={academyResourcesBundle.learning.highlighted}
             resources={academyResourcesBundle.learning.other}
