@@ -1,7 +1,7 @@
 import type { GithubRepo } from "../models/github-repo";
 import type { NpmDownloadsDto } from "../models/npm-downloads";
 
-const STARKNET_DB_BASE_URL = "https://api.starknet-db.com";
+const ZEITGEIST_GQL_URL = "https://processor.zeitgeist.pm/graphql";
 const ZEITGEIST_SUBSCAN_URL = "https://zeitgeist.api.subscan.io/";
 
 const fetchGithubRepo = (
@@ -28,7 +28,7 @@ const fetchNpmDownloads = (name: string): Promise<NpmDownloadsDto> =>
       return 0;
     });
 
-const fetchTransactionCount = (): Promise<number> =>
+const fetchMarketCount = (): Promise<number> =>
   fetch(`https://${testnet ? "goerli." : ""}voyager.online/api/txns?ps=10&p=1`)
     .then((response: Response) => {
       if (!response.ok) throw new Error(response.statusText);
