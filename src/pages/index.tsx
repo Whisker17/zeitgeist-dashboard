@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import { Flex, SimpleGrid } from "@chakra-ui/react";
-
-import MetricsPage from "../components/layout/Metrics/Overviews";
+import MetricsPage from "./metrics";
 
 const Home: NextPage = () => {
   return (

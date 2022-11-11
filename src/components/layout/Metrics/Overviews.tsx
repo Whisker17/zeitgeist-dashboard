@@ -7,7 +7,7 @@ import { MetricsApi } from "../../../services/metrics-api.service";
 
 import CountPaper from "../../metrics/count-papers";
 
-const MetricsPage: FC = () => {
+const Overviews: FC = () => {
   const [TVL, setTVL] = useState<number | undefined>(undefined);
 
   useEffect(() => {
@@ -38,4 +38,4 @@ const MetricsPage: FC = () => {
   );
 };
 
-export default MetricsPage;
+export default Overviews;
