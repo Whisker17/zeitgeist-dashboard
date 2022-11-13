@@ -17,7 +17,7 @@ export const allMetricsTags: Tag[] = [
   {
     value: MetricsCategory.OVERVIEWS,
     label: "Overviews",
-    icon: "graduation-cap",
+    icon: "home",
   },
   {
     value: MetricsCategory.USERS,

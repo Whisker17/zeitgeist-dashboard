@@ -3,6 +3,7 @@ import type { FC, ChangeEvent } from "react";
 import { useState } from "react";
 import { MetricsCategory, allMetricsTags } from "../../../data/tag";
 import Overviews from "../../components/layout/Metrics/Overviews";
+import Users from "../../components/layout/Metrics/Users";
 import Sidebar from "../../components/layout/SideBar/Sidebar";
 
 const MetricsPage: FC = () => {
@@ -16,8 +17,8 @@ const MetricsPage: FC = () => {
 
   const renderContent = () => {
     switch (currentCategory.value) {
-      // case MetricsCategory.USERS:
-      //   return <ContributeContent />;
+      case MetricsCategory.USERS:
+        return <Users />;
       // case MetricsCategory.TRANSACTIONS:
       //   return <ToolsContent />;
       // case MetricsCategory.APPLICATIONS:
@@ -38,7 +39,7 @@ const MetricsPage: FC = () => {
       align="flex-start"
       transform="translateZ(0)"
     >
-      <Flex w="full" direction={{ base: "column", md: "row" }} mt={24}>
+      <Flex w="full" direction={{ base: "column", md: "row" }}>
         <Sidebar
           typeText="Resources"
           tags={allMetricsTags}
