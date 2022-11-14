@@ -1,6 +1,6 @@
 import type { DeepPartial, Theme } from "@chakra-ui/react";
 
-const Menu: DeepPartial<Theme["components"]["Tabs"]> = {
+const Sidebar: DeepPartial<Theme["components"]["Tabs"]> = {
   baseStyle: {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -13,4 +13,4 @@ const Menu: DeepPartial<Theme["components"]["Tabs"]> = {
   },
 };
 
-export default Menu;
+export default Sidebar;
