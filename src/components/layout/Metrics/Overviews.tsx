@@ -22,7 +22,7 @@ const Overviews: FC = () => {
         <Title highlighted="Zeitgeist Overviews"></Title>
       </Box>
       {/* Stats */}
-      <SimpleGrid columns={{ sm: 1, md: 2, lg: 4 }} spacing={400} mb={8}>
+      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={200} mb={8}>
         <CountPaper count={TVL} label={`Total Value Locked (USD)`} />
         <CountPaper count={2} label={`Change`} />
         <CountPaper count={2} label={`APR`} />

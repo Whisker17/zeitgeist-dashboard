@@ -14,9 +14,10 @@ const CountPaper: FC<Props> = ({ count, label }) => (
     borderRadius="md"
     p={5}
     textAlign="center"
-    w="30vh"
+    w="40vh"
+    h="12vh"
   >
-    <Text mt={2} fontSize="xl" color="whiteAlpha.600" fontWeight="bold">
+    <Text mt={0} fontSize="xl" color="whiteAlpha.600" fontWeight="bold">
       {label}
     </Text>
     <Text fontSize="3xl" fontWeight="bold">

@@ -2,7 +2,10 @@ import { Flex, Text } from "@chakra-ui/layout";
 import type { FC, ChangeEvent } from "react";
 import { useState } from "react";
 import { MetricsCategory, allMetricsTags } from "../../../data/tag";
+import Applications from "../../components/layout/Metrics/Applications";
+import Devs from "../../components/layout/Metrics/Devs";
 import Overviews from "../../components/layout/Metrics/Overviews";
+import Transactions from "../../components/layout/Metrics/Transactions";
 import Users from "../../components/layout/Metrics/Users";
 import Sidebar from "../../components/layout/SideBar/Sidebar";
 
@@ -19,12 +22,12 @@ const MetricsPage: FC = () => {
     switch (currentCategory.value) {
       case MetricsCategory.USERS:
         return <Users />;
-      // case MetricsCategory.TRANSACTIONS:
-      //   return <ToolsContent />;
-      // case MetricsCategory.APPLICATIONS:
-      //   return <WalletsContent />;
-      // case MetricsCategory.DEVS:
-      //   return <NewsInfosContent />;
+      case MetricsCategory.TRANSACTIONS:
+        return <Transactions />;
+      case MetricsCategory.APPLICATIONS:
+        return <Applications />;
+      case MetricsCategory.DEVS:
+        return <Devs />;
       case MetricsCategory.OVERVIEWS:
       default:
         return <Overviews />;

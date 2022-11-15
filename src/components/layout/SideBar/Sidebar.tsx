@@ -7,14 +7,6 @@ import {
   Avatar,
   Heading,
 } from "@chakra-ui/react";
-import {
-  AiOutlineMenu,
-  AiOutlineHome,
-  AiOutlineUser,
-  AiOutlineTransaction,
-  AiOutlineDashboard,
-  AiOutlineFork,
-} from "react-icons/ai";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -97,10 +89,8 @@ export default function Sidebar({
         position="sticky"
         top={0}
         alignSelf="flex-start"
+        marginTop={100}
       >
-        <Text fontSize="3xl" mb={8}>
-          Category
-        </Text>
         {tags.map((tag) => {
           return (
             <Flex
@@ -108,6 +98,7 @@ export default function Sidebar({
               mb={2}
               px={1}
               py={1}
+              mt={10}
               direction="row"
               justify="space-between"
               align="center"

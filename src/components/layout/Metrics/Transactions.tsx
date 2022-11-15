@@ -8,24 +8,22 @@ import { MetricsApi } from "../../../services/metrics-api.service";
 import CountPaper from "../../metrics/count-papers";
 import Title from "../Title";
 
-const Users: FC = () => {
-  const [addressCount, setAddressCount] = useState<number | undefined>(
-    undefined
-  );
+const Transactions: FC = () => {
+  const [TVL, setTVL] = useState<number | undefined>(undefined);
 
   useEffect(() => {
-    MetricsApi.fetchAddressCount().then(setAddressCount);
+    MetricsApi.fetchTVL().then(setTVL);
   });
 
   return (
     <VStack w="full" align="flex-start">
       {/* Title */}
       <Box mb={"4"}>
-        <Title highlighted="Users Stats"></Title>
+        <Title highlighted="Transactions Stats"></Title>
       </Box>
       {/* Stats */}
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={400} mb={8}>
-        <CountPaper count={addressCount} label={`Total Addresses`} />
+        <CountPaper count={TVL} label={`Total Transactions`} />
         <CountPaper count={2} label={`Change`} />
       </SimpleGrid>
       {/* Chart */}
@@ -33,4 +31,4 @@ const Users: FC = () => {
   );
 };
 
-export default Users;
+export default Transactions;
