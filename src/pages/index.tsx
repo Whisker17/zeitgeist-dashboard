@@ -4,7 +4,13 @@ import MetricsPage from "./metrics";
 
 const Home: NextPage = () => {
   return (
-    <Flex direction="column" h="100vh">
+    <Flex
+      w="full"
+      direction="column"
+      justify="flex-start"
+      align="flex-start"
+      transform="translateZ(0)"
+    >
       <MetricsPage />
     </Flex>
   );
