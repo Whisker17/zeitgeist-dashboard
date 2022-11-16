@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { MetricsApi } from "../../../services/metrics-api.service";
 
 import CountPaper from "../../metrics/count-papers";
+import NpmDownloadsPaper from "../../metrics/npm-papers";
 import Title from "../Title";
 
 const Devs: FC = () => {
@@ -28,6 +29,7 @@ const Devs: FC = () => {
         <CountPaper count={2} label={`APR`} />
       </SimpleGrid>
       {/* Chart */}
+      <NpmDownloadsPaper name="@zeitgeistpm/sdk" label="zeitgeistpm/sdk" />
     </VStack>
   );
 };

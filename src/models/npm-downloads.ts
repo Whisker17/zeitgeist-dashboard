@@ -1,4 +1,4 @@
-export interface NpmDownloadsDto {
+export interface NpmDownloadsWithLabel {
   start: string;
   end: string;
   package: string;
