@@ -17,11 +17,39 @@ export const aGitHubRepo = (): GithubRepo => ({
 });
 
 export const aNpmDownloads = (): NpmDownloads => ({
-  start: "2022-11-09",
+  start: "2022-11-02",
   end: "2022-11-15",
   package: "@zeitgeistpm/sdk",
   label: zeitgeistSDK,
   downloads: [
+    {
+      downloads: 137,
+      day: "2022-11-02",
+    },
+    {
+      downloads: 40,
+      day: "2022-11-03",
+    },
+    {
+      downloads: 74,
+      day: "2022-11-04",
+    },
+    {
+      downloads: 59,
+      day: "2022-11-05",
+    },
+    {
+      downloads: 113,
+      day: "2022-11-06",
+    },
+    {
+      downloads: 226,
+      day: "2022-11-07",
+    },
+    {
+      downloads: 162,
+      day: "2022-11-08",
+    },
     {
       downloads: 33,
       day: "2022-11-09",
@@ -77,12 +105,12 @@ export const aCumulativeNpmDownloadsChart = (): NpmDownloadsChart => ({
     {
       start: "2022-11-02",
       end: "2022-11-08",
-      downloads: 1111,
+      downloads: 811,
     },
     {
       start: "2022-11-09",
       end: "2022-11-15",
-      downloads: 2222,
+      downloads: 1609,
     },
   ],
 });
