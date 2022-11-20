@@ -1,3 +1,4 @@
+import { aNpmDownloads } from "../models/metrics.fixture";
 import { MetricsApi } from "../services/metrics-api.service";
 
 describe("npm test", () => {
@@ -20,13 +21,12 @@ describe("npm test", () => {
     });
     it("should format NpmDownloads to NpmDownloadsChart when cumulative is true", () => {
       // Given
-      const npmDownloads = aNpmDownloads();
-      const expected = aCumulativeNpmDownloadsChart();
+      const expected = aNpmDownloads;
 
       // When
       const result = MetricsApi.fetchNpmDownloads(
         "@zeitgeistpm/sdk",
-        "2022-11-12"
+        "2022-11-15"
       );
 
       // Then
