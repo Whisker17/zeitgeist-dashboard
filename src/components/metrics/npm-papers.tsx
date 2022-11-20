@@ -60,9 +60,6 @@ const NpmDownloadsPaper: FC<Props> = ({ name, label }) => {
     MetricsApi.fetchNpmDownloads(name, yesterday).then((result) =>
       setNpmDownloads({ ...result, label })
     );
-
-    console.log("111111111");
-    console.log(yesterday);
   }, [name, label]);
 
   useEffect(() => {
