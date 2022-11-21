@@ -56,8 +56,10 @@ const NpmDownloadsPaper: FC<Props> = ({ name, label }) => {
     .toISOString()
     .split("T")[0];
 
+  const dateRange = "2021-05-15:" + yesterday;
+
   useEffect(() => {
-    MetricsApi.fetchNpmDownloads(name, yesterday).then((result) =>
+    MetricsApi.fetchNpmDownloads(name, dateRange).then((result) =>
       setNpmDownloads({ ...result, label })
     );
   }, [name, label]);
