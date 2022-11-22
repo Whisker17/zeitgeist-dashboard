@@ -25,7 +25,7 @@ const Overviews: FC = () => {
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={200} mb={8}>
         <CountPaper count={TVL} label={`Total Value Locked (USD)`} big={true} />
         <CountPaper count={2} label={`Change`} />
-        <CountPaper count={2} label={`APR`} />
+        <CountPaper count={"Soon"} label={`APR`} />
       </SimpleGrid>
       {/* Chart */}
     </VStack>
