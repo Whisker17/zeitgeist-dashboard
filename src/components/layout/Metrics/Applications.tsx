@@ -10,9 +10,16 @@ import Title from "../Title";
 
 const Applications: FC = () => {
   const [TVL, setTVL] = useState<number | undefined>(undefined);
+  const [MarketsCount, setTMarketsCount] = useState<number | undefined>(
+    undefined
+  );
 
   useEffect(() => {
     MetricsApi.fetchTVL().then(setTVL);
+  });
+
+  useEffect(() => {
+    MetricsApi.fetchMarketCount().then(setTMarketsCount);
   });
 
   return (
@@ -23,9 +30,9 @@ const Applications: FC = () => {
       </Box>
       {/* Stats */}
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={200} mb={8}>
-        <CountPaper count={TVL} label={`Total Value Locked (USD)`} />
+        <CountPaper count={TVL} label={`Total Markets Value (USD)`} />
         <CountPaper count={2} label={`Change`} />
-        <CountPaper count={2} label={`APR`} />
+        <CountPaper count={MarketsCount} label={`Total Markets Count`} />
       </SimpleGrid>
       {/* Chart */}
     </VStack>
