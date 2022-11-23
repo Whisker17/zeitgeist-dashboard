@@ -23,8 +23,12 @@ const Overviews: FC = () => {
       </Box>
       {/* Stats */}
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={200} mb={8}>
-        <CountPaper count={TVL} label={`Total Value Locked (USD)`} big={true} />
-        <CountPaper count={2} label={`Change`} />
+        <CountPaper
+          count={"Soon"}
+          label={`Total Value Locked (USD)`}
+          big={true}
+        />
+        <CountPaper count={"Soon"} label={`Change`} />
         <CountPaper count={"Soon"} label={`APR`} />
       </SimpleGrid>
       {/* Chart */}

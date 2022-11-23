@@ -23,13 +23,29 @@ const Devs: FC = () => {
         <Title highlighted="Devs Stats"></Title>
       </Box>
       {/* Stats */}
+      <Text as="h2" mb={4} fontSize="2xl" fontWeight="bold" w="full">
+        {"Tools & Libraries"}
+      </Text>
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={200} mb={8}>
         <CountPaper count={TVL} label={`Total Value Locked (USD)`} />
         <CountPaper count={2} label={`Change`} />
         <CountPaper count={2} label={`APR`} />
       </SimpleGrid>
       {/* Chart */}
-      <NpmDownloadsPaper name="@zeitgeistpm/sdk" label="zeitgeistpm/sdk" />
+      <Text as="h2" mb={4} fontSize="2xl" fontWeight="bold" w="full">
+        {"SDK Downloads"}
+      </Text>
+      <SimpleGrid columns={{ sm: 1, md: 4, lg: 2 }} spacing={100} mb={8}>
+        <Box w={500}>
+          <NpmDownloadsPaper name="@zeitgeistpm/sdk" label="zeitgeistpm/sdk" />
+        </Box>
+        <Box w={500}>
+          <NpmDownloadsPaper
+            name="@zeitgeistpm/avatara-zeitgeist-sdk"
+            label="zeitgeistpm/avatara-sdk"
+          />
+        </Box>
+      </SimpleGrid>
     </VStack>
   );
 };
