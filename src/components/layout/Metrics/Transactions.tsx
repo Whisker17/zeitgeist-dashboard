@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { MetricsApi } from "../../../services/metrics-api.service";
+import { formatCompactNumber } from "../../../services/number.service";
 
 import CountPaper from "../../metrics/count-papers";
 import TransactionsPaper from "../../metrics/transactions-papers";
@@ -25,7 +26,7 @@ const Transactions: FC = () => {
       {/* Stats */}
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 2 }} spacing={200} mb={8}>
         <Box w={400}>
-          <CountPaper count={TVL} label={`Total Transactions`} />
+          <CountPaper count={36694} label={`Total Transactions`} />
         </Box>
         <Box>
           <CountPaper count={2} label={`Change`} />

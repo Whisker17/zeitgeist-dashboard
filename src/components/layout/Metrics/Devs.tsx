@@ -7,6 +7,7 @@ import { MetricsApi } from "../../../services/metrics-api.service";
 
 import CountPaper from "../../metrics/count-papers";
 import NpmDownloadsPaper from "../../metrics/npm-papers";
+import GithubReposPaper from "../../metrics/tools-papers";
 import Title from "../Title";
 
 const Devs: FC = () => {
@@ -26,10 +27,8 @@ const Devs: FC = () => {
       <Text as="h2" mb={4} fontSize="2xl" fontWeight="bold" w="full">
         {"Tools & Libraries"}
       </Text>
-      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={200} mb={8}>
-        <CountPaper count={TVL} label={`Total Value Locked (USD)`} />
-        <CountPaper count={2} label={`Change`} />
-        <CountPaper count={2} label={`APR`} />
+      <SimpleGrid columns={{ sm: 1, md: 2, lg: 1 }} mb={8}>
+        <GithubReposPaper></GithubReposPaper>
       </SimpleGrid>
       {/* Chart */}
       <Text as="h2" mb={4} fontSize="2xl" fontWeight="bold" w="full">

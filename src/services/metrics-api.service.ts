@@ -1,4 +1,5 @@
 import SDK from "@zeitgeistpm/sdk";
+import { GithubRepo } from "../models/github-repo";
 import { NpmDownloadsWithoutLabel } from "../models/npm-downloads";
 
 const ZEITGEIST_RPC_URL = "wss://ws-internal.zeitgeist.pm";
@@ -6,6 +7,21 @@ const ZEITGEIST_GQL_URL = "https://processor.zeitgeist.pm/graphql";
 const ZEITGEIST_SUBSCAN_URL = "https://zeitgeist.api.subscan.io/";
 const ZEITGEIST_API_URL = "https://api.zeitgeist.pm/";
 const NPM_REGISTRY_URL = "https://api.npmjs.org/downloads/";
+
+// Todo
+// Need to implement this api by using our api
+const fetchGithubRepo = (
+  organization: string,
+  name: string
+): Promise<GithubRepo> =>
+  fetch(
+    `https://api.starknet-db.com/github-metrics/${organization}/${name}`
+  ).then((response: Response) => {
+    if (!response.ok) {
+      throw new Error(`${response.statusText}${organization}/${name}`);
+    }
+    return response.json();
+  });
 
 const fetchMarketCount = async (): Promise<number> => {
   const sdk = await SDK.initialize(ZEITGEIST_RPC_URL);
@@ -66,6 +82,7 @@ const fetchNpmDownloads = (
     });
 
 export const MetricsApi = {
+  fetchGithubRepo,
   fetchMarketCount,
   fetchTVL,
   fetchAddressCount,

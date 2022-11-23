@@ -3,19 +3,6 @@ import type { NpmDownloads, NpmDownloadsChart } from "./npm-downloads";
 
 const zeitgeistSDK = "zeitgeistpm/sdk";
 
-export const aGitHubRepo = (): GithubRepo => ({
-  id: "418545583",
-  name: "starknet.js",
-  fullName: "0xs34n/starknet.js",
-  url: "https://github.com/0xs34n/starknet.js",
-  description: "JavaScript library for StarkNet",
-  homepage: "https://www.starknetjs.com",
-  openIssuesCount: 16,
-  forksCount: 39,
-  stargazersCount: 152,
-  subscribersCount: 11,
-});
-
 export const aNpmDownloads = (): NpmDownloads => ({
   start: "2022-11-02",
   end: "2022-11-15",

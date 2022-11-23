@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { MetricsApi } from "../../../services/metrics-api.service";
 
 import CountPaper from "../../metrics/count-papers";
+import TransactionsPaper from "../../metrics/transactions-papers";
 import Title from "../Title";
 
 const Overviews: FC = () => {
@@ -32,6 +33,11 @@ const Overviews: FC = () => {
         <CountPaper count={"Soon"} label={`APR`} />
       </SimpleGrid>
       {/* Chart */}
+      <SimpleGrid columns={{ sm: 1, md: 4, lg: 2 }} spacing={100} mb={8}>
+        <Box w={1100} mt={8}>
+          <TransactionsPaper label="Txs" />
+        </Box>
+      </SimpleGrid>
     </VStack>
   );
 };
