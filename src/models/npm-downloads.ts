@@ -1,4 +1,4 @@
-export interface NpmDownloadsWithLabel {
+export interface NpmDownloadsWithoutLabel {
   start: string;
   end: string;
   package: string;

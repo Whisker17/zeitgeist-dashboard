@@ -19,14 +19,10 @@ import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import * as d3 from "d3";
 
-import type {
-  NpmDownloads,
-  NpmDownloadsChart,
-} from "../../models/npm-downloads";
-import { MetricsApi } from "../../services/metrics-api.service";
-import { toNpmDownloadsChart } from "../../services/metrics.service";
 import Card from "../card/Card";
 import CardContentLoading from "../card/CardContentLoading";
+import { Transactions, TransactionsChart } from "../../models/transactions";
+import { toTransactionsChart } from "../../services/transaction.service";
 
 ChartJS.register(
   Filler,
@@ -40,25 +36,39 @@ ChartJS.register(
 );
 
 interface Props {
-  name: string;
   label: string;
 }
 
-const TransactionsPaper: FC<Props> = ({ name, label }) => {
+const TransactionsPaper: FC<Props> = ({ label }) => {
   const theme = useTheme();
-  const [values, setValues] = useState<NpmDownloadsChart>();
-  const [transactions, setTransactions] = useState<NpmDownloads>();
+  const [values, setValues] = useState<TransactionsChart>();
+  const [transactions, setTransactions] = useState<Transactions>();
   const [cumulative, setCumulative] = useState(true);
 
   useEffect(() => {
-    d3.csv();
-  }, [name, label]);
+    const dataSource =
+      "https://raw.githubusercontent.com/Whisker17/zeitgeist-dashboard/test/data/charts/Daily-Extrinsic-Number.csv";
+    d3.csv(dataSource)
+      .then(function (data) {
+        const res: Transactions = {} as Transactions;
+        const txs: { txs: number; day: string }[] = [];
+        data.forEach((index) => {
+          if (index.Value !== undefined && index.Date !== undefined) {
+            txs.push({ txs: Number(index.Value), day: index.Date });
+          }
+        });
+        res.label = label;
+        res.txs = txs;
+        return res;
+      })
+      .then((res) => setTransactions(res));
+  }, [label]);
 
   useEffect(() => {
-    if (npmDownloads !== undefined) {
-      setValues(toNpmDownloadsChart(npmDownloads, cumulative));
+    if (transactions !== undefined) {
+      setValues(toTransactionsChart(transactions, cumulative));
     }
-  }, [npmDownloads, cumulative]);
+  }, [transactions, cumulative]);
 
   let height: number;
   let width: number;
@@ -114,12 +124,12 @@ const TransactionsPaper: FC<Props> = ({ name, label }) => {
         <HStack fontSize="xs" color="whiteAlpha.600">
           {values ? (
             <Text fontWeight="bold">
-              {values.downloads[values.downloads.length - 1].downloads}
+              {values.txs[values.txs.length - 1].txs}
             </Text>
           ) : (
             renderLittleSkeleton()
           )}
-          <Text>{cumulative ? "downloads" : "downloads last 7 days"}</Text>
+          <Text>{cumulative ? "Txs" : "Txs last 7 days"}</Text>
         </HStack>
       </VStack>
       {values ? (
@@ -168,7 +178,7 @@ const TransactionsPaper: FC<Props> = ({ name, label }) => {
               },
             }}
             data={{
-              labels: values.downloads.map((week) =>
+              labels: values.txs.map((week) =>
                 cumulative ? week.end : `${week.start} to ${week.end}`
               ),
               datasets: [
@@ -176,8 +186,8 @@ const TransactionsPaper: FC<Props> = ({ name, label }) => {
                   fill: true,
                   borderWidth: 2,
                   tension: 0.4,
-                  label: values.package,
-                  data: values.downloads.map((week) => week.downloads),
+                  label: label,
+                  data: values.txs.map((week) => week.txs),
                   borderColor(context) {
                     const { chart } = context;
                     const { ctx, chartArea } = chart;

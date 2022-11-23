@@ -1,5 +1,5 @@
 import SDK from "@zeitgeistpm/sdk";
-import { NpmDownloadsWithLabel } from "../models/npm-downloads";
+import { NpmDownloadsWithoutLabel } from "../models/npm-downloads";
 
 const ZEITGEIST_RPC_URL = "wss://ws-internal.zeitgeist.pm";
 const ZEITGEIST_GQL_URL = "https://processor.zeitgeist.pm/graphql";
@@ -32,10 +32,29 @@ const fetchAddressCount = (): Promise<number> =>
       return 0;
     });
 
+const fetchTransactionsCount = (): Promise<number> => {
+  return fetch(`${ZEITGEIST_SUBSCAN_URL}/api/scan/metadata`, {
+    headers: {
+      "x-api-keys": String(process.env.SUBSCAN_API_KEY),
+    },
+  })
+    .then((response: Response) => {
+      if (!response.ok) throw new Error(response.statusText);
+      return response.json();
+    })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      console.log(error);
+      return 0;
+    });
+};
+
 const fetchNpmDownloads = (
   name: string,
   date: string
-): Promise<NpmDownloadsWithLabel> =>
+): Promise<NpmDownloadsWithoutLabel> =>
   fetch(`${NPM_REGISTRY_URL}/range/${date}/${name}`)
     .then((response: Response) => {
       if (!response.ok) throw new Error(response.statusText);
@@ -50,5 +69,6 @@ export const MetricsApi = {
   fetchMarketCount,
   fetchTVL,
   fetchAddressCount,
+  fetchTransactionsCount,
   fetchNpmDownloads,
 };
