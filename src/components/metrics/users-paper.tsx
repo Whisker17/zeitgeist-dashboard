@@ -21,8 +21,9 @@ import * as d3 from "d3";
 
 import Card from "../card/Card";
 import CardContentLoading from "../card/CardContentLoading";
-import { Transactions, TransactionsChart } from "../../models/transactions";
+import { Users, UsersChart } from "../../models/users";
 import { toTransactionsChart } from "../../services/transaction.service";
+import { toUsersChart } from "../../services/users.service";
 
 ChartJS.register(
   Filler,
@@ -39,36 +40,44 @@ interface Props {
   label: string;
 }
 
-const TransactionsPaper: FC<Props> = ({ label }) => {
+const UsersPaper: FC<Props> = ({ label }) => {
   const theme = useTheme();
-  const [values, setValues] = useState<TransactionsChart>();
-  const [transactions, setTransactions] = useState<Transactions>();
+  const [values, setValues] = useState<UsersChart>();
+  const [users, setTransactions] = useState<Users>();
   const [cumulative, setCumulative] = useState(true);
 
   useEffect(() => {
     const dataSource =
-      "https://raw.githubusercontent.com/Whisker17/zeitgeist-dashboard/test/data/charts/Daily-Extrinsic-Number.csv";
+      "https://raw.githubusercontent.com/Whisker17/zeitgeist-dashboard/test/data/charts/Daily-Active-Account.csv";
     d3.csv(dataSource)
       .then(function (data) {
-        const res: Transactions = {} as Transactions;
-        const txs: { txs: number; day: string }[] = [];
+        const res: Users = {} as Users;
+        const uss: { active: number; users: number; day: string }[] = [];
         data.forEach((index) => {
-          if (index.Value !== undefined && index.Date !== undefined) {
-            txs.push({ txs: Number(index.Value), day: index.Date });
+          if (
+            index.Active !== undefined &&
+            index.New !== undefined &&
+            index.Date !== undefined
+          ) {
+            uss.push({
+              users: Number(index.New),
+              day: index.Date,
+              active: Number(index.Active),
+            });
           }
         });
         res.label = label;
-        res.txs = txs;
+        res.users = uss;
         return res;
       })
       .then((res) => setTransactions(res));
   }, [label]);
 
   useEffect(() => {
-    if (transactions !== undefined) {
-      setValues(toTransactionsChart(transactions, cumulative));
+    if (users !== undefined) {
+      setValues(toUsersChart(users, cumulative));
     }
-  }, [transactions, cumulative]);
+  }, [users, cumulative]);
 
   let height: number;
   let width: number;
@@ -105,10 +114,7 @@ const TransactionsPaper: FC<Props> = ({ label }) => {
       <VStack alignItems="flex-start" spacing={0} mb={4}>
         <Flex w="full" justify="space-between" alignItems="flex-start" mb={1}>
           <HStack as="h3" fontSize="lg" fontWeight="bold">
-            <FontAwesomeIcon
-              fontSize="24px"
-              icon={solid("arrow-right-arrow-left")}
-            />
+            <FontAwesomeIcon fontSize="24px" icon={solid("users")} />
             <Text ml={1}>{label}</Text>
           </HStack>
           <Box fontSize="sm" color="whiteAlpha.600">
@@ -127,12 +133,12 @@ const TransactionsPaper: FC<Props> = ({ label }) => {
         <HStack fontSize="xs" color="whiteAlpha.600">
           {values ? (
             <Text fontWeight="bold">
-              {values.txs[values.txs.length - 1].txs}
+              {values.users[values.users.length - 1].users}
             </Text>
           ) : (
             renderLittleSkeleton()
           )}
-          <Text>{cumulative ? "Txs" : "Txs last 7 days"}</Text>
+          <Text>{cumulative ? "New Users" : "New Users last 7 days"}</Text>
         </HStack>
       </VStack>
       {values ? (
@@ -176,12 +182,12 @@ const TransactionsPaper: FC<Props> = ({ label }) => {
                   propagate: true,
                 },
                 legend: {
-                  display: false,
+                  position: "top" as const,
                 },
               },
             }}
             data={{
-              labels: values.txs.map((week) =>
+              labels: values.users.map((week) =>
                 cumulative ? week.end : `${week.start} to ${week.end}`
               ),
               datasets: [
@@ -190,7 +196,28 @@ const TransactionsPaper: FC<Props> = ({ label }) => {
                   borderWidth: 2,
                   tension: 0.4,
                   label: label,
-                  data: values.txs.map((week) => week.txs),
+                  data: values.users.map((week) => week.users),
+                  borderColor(context) {
+                    const { chart } = context;
+                    const { ctx, chartArea } = chart;
+
+                    if (!chartArea) {
+                      // Initial chart load
+                      return;
+                    }
+                    // eslint-disable-next-line consistent-return
+                    return getGradient(ctx, chartArea);
+                  },
+                  // eslint-disable-next-line @typescript-eslint/dot-notation
+                  // backgroundColor: `${theme["__cssMap"]["colors.brand.900"].value}80`,
+                  backgroundColor: "transparent",
+                },
+                {
+                  fill: true,
+                  borderWidth: 2,
+                  tension: 0.4,
+                  label: label,
+                  data: values.users.map((week) => week.active),
                   borderColor(context) {
                     const { chart } = context;
                     const { ctx, chartArea } = chart;
@@ -236,4 +263,4 @@ const TransactionsPaper: FC<Props> = ({ label }) => {
   );
 };
 
-export default TransactionsPaper;
+export default UsersPaper;
