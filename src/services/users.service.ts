@@ -1,4 +1,3 @@
-import { active } from "d3";
 import { Users, UsersChart } from "../models/users";
 
 export const toUsersChart = (

@@ -22,7 +22,6 @@ import * as d3 from "d3";
 import Card from "../card/Card";
 import CardContentLoading from "../card/CardContentLoading";
 import { Users, UsersChart } from "../../models/users";
-import { toTransactionsChart } from "../../services/transaction.service";
 import { toUsersChart } from "../../services/users.service";
 
 ChartJS.register(
@@ -83,7 +82,11 @@ const UsersPaper: FC<Props> = ({ label }) => {
   let width: number;
   let gradient: CanvasGradient;
 
-  function getGradient(ctx: CanvasFillStrokeStyles, chartArea: any) {
+  function getGradient(
+    ctx: CanvasFillStrokeStyles,
+    chartArea: any,
+    index: number
+  ) {
     const chartWidth = chartArea.right - chartArea.left;
     const chartHeight = chartArea.bottom - chartArea.top;
     if (!gradient || width !== chartWidth || height !== chartHeight) {
@@ -95,12 +98,21 @@ const UsersPaper: FC<Props> = ({ label }) => {
         0,
         chartArea.top
       );
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      gradient.addColorStop(0, theme.colors.primary["500"]);
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      gradient.addColorStop(1, theme.colors.primary["300"]);
+      if (index === 0) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        gradient.addColorStop(0, theme.colors.primary["500"]);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        gradient.addColorStop(1, theme.colors.primary["300"]);
+      } else {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        gradient.addColorStop(0, theme.colors.whiteAlpha["600"]);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        gradient.addColorStop(1, theme.colors.whiteAlpha["600"]);
+      }
     }
 
     return gradient;
@@ -138,7 +150,9 @@ const UsersPaper: FC<Props> = ({ label }) => {
           ) : (
             renderLittleSkeleton()
           )}
-          <Text>{cumulative ? "New Users" : "New Users last 7 days"}</Text>
+          <Text>
+            {cumulative ? "New Users in total" : "New Users last 7 days"}
+          </Text>
         </HStack>
       </VStack>
       {values ? (
@@ -182,7 +196,7 @@ const UsersPaper: FC<Props> = ({ label }) => {
                   propagate: true,
                 },
                 legend: {
-                  position: "top" as const,
+                  display: false,
                 },
               },
             }}
@@ -195,7 +209,7 @@ const UsersPaper: FC<Props> = ({ label }) => {
                   fill: true,
                   borderWidth: 2,
                   tension: 0.4,
-                  label: label,
+                  label: "New Users",
                   data: values.users.map((week) => week.users),
                   borderColor(context) {
                     const { chart } = context;
@@ -206,7 +220,7 @@ const UsersPaper: FC<Props> = ({ label }) => {
                       return;
                     }
                     // eslint-disable-next-line consistent-return
-                    return getGradient(ctx, chartArea);
+                    return getGradient(ctx, chartArea, 0);
                   },
                   // eslint-disable-next-line @typescript-eslint/dot-notation
                   // backgroundColor: `${theme["__cssMap"]["colors.brand.900"].value}80`,
@@ -216,7 +230,7 @@ const UsersPaper: FC<Props> = ({ label }) => {
                   fill: true,
                   borderWidth: 2,
                   tension: 0.4,
-                  label: label,
+                  label: "Active Users",
                   data: values.users.map((week) => week.active),
                   borderColor(context) {
                     const { chart } = context;
@@ -227,7 +241,7 @@ const UsersPaper: FC<Props> = ({ label }) => {
                       return;
                     }
                     // eslint-disable-next-line consistent-return
-                    return getGradient(ctx, chartArea);
+                    return getGradient(ctx, chartArea, 1);
                   },
                   // eslint-disable-next-line @typescript-eslint/dot-notation
                   // backgroundColor: `${theme["__cssMap"]["colors.brand.900"].value}80`,

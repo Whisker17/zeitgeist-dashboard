@@ -1,6 +1,4 @@
 import { Box, HStack, Link, VStack, SimpleGrid, Text } from "@chakra-ui/layout";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { MetricsApi } from "../../../services/metrics-api.service";
@@ -30,7 +28,7 @@ const Users: FC = () => {
           <CountPaper count={addressCount} label={`Total Addresses`} />
         </Box>
         <Box>
-          <CountPaper count={2} label={`Change`} />
+          <CountPaper count={2} label={`Daily Active Addresses`} />
         </Box>
       </SimpleGrid>
       {/* Chart */}
