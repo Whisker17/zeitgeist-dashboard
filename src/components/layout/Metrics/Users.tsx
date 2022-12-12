@@ -1,5 +1,11 @@
 import { Box, HStack, Link, VStack, SimpleGrid, Text } from "@chakra-ui/layout";
-import { Stat } from "@chakra-ui/react";
+import {
+  Stat,
+  StatArrow,
+  StatHelpText,
+  StatLabel,
+  StatNumber,
+} from "@chakra-ui/react";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { MetricsApi } from "../../../services/metrics-api.service";
@@ -29,7 +35,12 @@ const Users: FC = () => {
           <CountPaper count={addressCount} label={`Total Addresses`} />
         </Box>
         <Stat>
-          <CountPaper count={2} label={`Daily Active Addresses`} />
+          <StatLabel>Daily Active Addresses</StatLabel>
+          <StatNumber>2</StatNumber>
+          <StatHelpText>
+            <StatArrow type="increase" />
+            10%
+          </StatHelpText>
         </Stat>
       </SimpleGrid>
       {/* Chart */}
