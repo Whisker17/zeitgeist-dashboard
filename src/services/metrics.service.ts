@@ -1,3 +1,4 @@
+import { APPCounts, APPCountsChart } from "../models/app";
 import type { NpmDownloads, NpmDownloadsChart } from "../models/npm-downloads";
 
 export const toNpmDownloadsChart = (
@@ -34,5 +35,40 @@ export const toNpmDownloadsChart = (
     package: npmDownloads.package,
     label: npmDownloads.label,
     downloads,
+  };
+};
+
+export const toAPPCountsChart = (
+  appCounts: APPCounts,
+  cumulative?: boolean
+): APPCountsChart => {
+  appCounts.message.splice(0, appCounts.message.length % 7);
+  const weeks: { count: number; date: string }[][] = [];
+  appCounts.message.forEach((count) => {
+    const lastIndex = weeks.length - 1;
+    if (lastIndex === -1) {
+      weeks[0] = [count];
+    } else if (weeks[lastIndex].length < 7) {
+      weeks[lastIndex] = [...weeks[lastIndex], count];
+    } else {
+      weeks[lastIndex + 1] = [count];
+    }
+  });
+  let message = weeks.map((week) => ({
+    start: week[0].date,
+    end: week[week.length - 1].date,
+    count: week
+      .map((day) => day.count)
+      .reduce((previousValue, currentValue) => previousValue + currentValue),
+  }));
+  if (cumulative) {
+    let ct = 0;
+    message = message.map((item) => {
+      ct += item.count;
+      return { ...item, message: ct };
+    });
+  }
+  return {
+    message,
   };
 };
