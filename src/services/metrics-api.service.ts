@@ -9,7 +9,7 @@ const ZEITGEIST_SUBSCAN_URL = "https://zeitgeist.api.subscan.io/";
 const ZEITGEIST_API_URL = "https://api.zeitgeist.pm/";
 // TODO
 // Need to integrate these apis to ours
-const ZEITGEIST_PRO_URL = "https://pro-api.zeitgeist.pm/";
+const ZEITGEIST_PRO_URL = "https://pro-api.zeitgeist.pm";
 const NPM_REGISTRY_URL = "https://api.npmjs.org/downloads/";
 
 // Todo
