@@ -38,7 +38,7 @@ export const toNpmDownloadsChart = (
   };
 };
 
-export const toAPPCountsChart = (
+export const toAPPCountsWeeklyChart = (
   appCounts: APPCounts,
   cumulative?: boolean
 ): APPCountsChart => {
@@ -65,7 +65,28 @@ export const toAPPCountsChart = (
     let ct = 0;
     message = message.map((item) => {
       ct += item.count;
-      return { ...item, message: ct };
+      return { ...item, count: ct };
+    });
+  }
+  return {
+    message,
+  };
+};
+
+export const toAPPCountsDailyChart = (
+  appCounts: APPCounts,
+  cumulative?: boolean
+): APPCountsChart => {
+  let message = appCounts.message.map((day) => ({
+    start: appCounts.message[0].date,
+    end: day.date,
+    count: day.count,
+  }));
+  if (cumulative) {
+    let ct = 0;
+    message = message.map((item) => {
+      ct += item.count;
+      return { ...item, count: ct };
     });
   }
   return {

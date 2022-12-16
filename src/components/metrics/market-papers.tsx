@@ -18,7 +18,7 @@ import { Bar } from "react-chartjs-2";
 import { APPCounts, APPCountsChart } from "../../models/app";
 
 import { MetricsApi } from "../../services/metrics-api.service";
-import { toAPPCountsChart } from "../../services/metrics.service";
+import { toAPPCountsDailyChart } from "../../services/metrics.service";
 import Card from "../card/Card";
 import CardContentLoading from "../card/CardContentLoading";
 
@@ -47,7 +47,7 @@ const APPPaper: FC<Props> = ({ name }) => {
 
   useEffect(() => {
     if (APPCounts !== undefined) {
-      setValues(toAPPCountsChart(APPCounts, cumulative));
+      setValues(toAPPCountsDailyChart(APPCounts, cumulative));
     }
   }, [APPCounts, cumulative]);
 
@@ -83,7 +83,7 @@ const APPPaper: FC<Props> = ({ name }) => {
           ) : (
             renderLittleSkeleton()
           )}
-          <Text>{cumulative ? "trades" : "trades last 7 days"}</Text>
+          <Text>{cumulative ? "in total" : "in yesterday"}</Text>
         </HStack>
       </VStack>
       {values ? (
@@ -133,17 +133,12 @@ const APPPaper: FC<Props> = ({ name }) => {
               },
             }}
             data={{
-              labels: values.message.map((week) =>
-                cumulative ? week.end : `${week.start} to ${week.end}`
-              ),
+              labels: values.message.map((day) => day.end),
               datasets: [
                 {
                   label: name,
                   data: values.message.map((week) => week.count),
-
-                  // eslint-disable-next-line @typescript-eslint/dot-notation
-                  // backgroundColor: `${theme["__cssMap"]["colors.brand.900"].value}80`,
-                  backgroundColor: "rgba(255, 99, 132, 0.5)",
+                  backgroundColor: theme.colors.primary["500"],
                 },
               ],
             }}
