@@ -1,4 +1,12 @@
-import { Box, HStack, Link, VStack, SimpleGrid, Text } from "@chakra-ui/layout";
+import {
+  Box,
+  HStack,
+  Link,
+  VStack,
+  SimpleGrid,
+  Text,
+  Flex,
+} from "@chakra-ui/layout";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FC } from "react";
@@ -37,11 +45,17 @@ const Applications: FC = () => {
         <CountPaper count={MarketsCount} label={`Total Markets Count`} />
       </SimpleGrid>
       {/* Chart */}
-      <SimpleGrid columns={{ sm: 1, md: 4, lg: 2 }} spacing={100} mb={8}>
+      <Flex mb={8} direction="column">
         <Box w={1100} mt={8}>
           <APPPaper name="trades" />
         </Box>
-      </SimpleGrid>
+        <Box w={1100} mt={8}>
+          <APPPaper name="uniqueAccounts" />
+        </Box>
+        <Box w={1100} mt={8}>
+          <APPPaper name="newAccounts" />
+        </Box>
+      </Flex>
     </VStack>
   );
 };

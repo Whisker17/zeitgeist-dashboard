@@ -55,7 +55,7 @@ const APPPaper: FC<Props> = ({ name }) => {
     return <Skeleton h={2} w="30px" />;
   };
   return (
-    <Card>
+    <Card height={300}>
       <VStack alignItems="flex-start" spacing={0} mb={4}>
         <Flex w="full" justify="space-between" alignItems="flex-start" mb={1}>
           <HStack as="h3" fontSize="lg" fontWeight="bold">
@@ -83,14 +83,15 @@ const APPPaper: FC<Props> = ({ name }) => {
           ) : (
             renderLittleSkeleton()
           )}
-          <Text>{cumulative ? "downloads" : "downloads last 7 days"}</Text>
+          <Text>{cumulative ? "trades" : "trades last 7 days"}</Text>
         </HStack>
       </VStack>
       {values ? (
-        <>
+        <Flex height={180} direction="column">
           <Bar
             options={{
               responsive: true,
+              maintainAspectRatio: false,
               elements: {
                 point: {
                   radius: 0,
@@ -142,7 +143,7 @@ const APPPaper: FC<Props> = ({ name }) => {
 
                   // eslint-disable-next-line @typescript-eslint/dot-notation
                   // backgroundColor: `${theme["__cssMap"]["colors.brand.900"].value}80`,
-                  backgroundColor: "transparent",
+                  backgroundColor: "rgba(255, 99, 132, 0.5)",
                 },
               ],
             }}
@@ -166,7 +167,7 @@ const APPPaper: FC<Props> = ({ name }) => {
               icon={solid("arrow-right-arrow-left")}
             />
           </HStack>
-        </>
+        </Flex>
       ) : (
         <CardContentLoading />
       )}
