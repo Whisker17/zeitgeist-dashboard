@@ -14,32 +14,33 @@ interface Props {
 }
 
 const StatPaper: FC<Props> = ({ count, label, diff, subtitle, big }) => (
-  <Stat textAlign="center">
+  <Stat textAlign="center" justifyContent={"center"}>
     <Card h="full">
-      <Flex>
+      <Flex justifyContent={"center"}>
         {count ? (
           <Text
             fontSize={big ? "3xl" : "2xl"}
             fontWeight="bold"
             marginRight={4}
+            align={"center"}
           >
             {formatCompactNumber(count)}
           </Text>
         ) : (
           <Skeleton w="full" maxW="200px" h={8} />
         )}
-        {Number(diff) > 0 ? (
-          <Flex>
+        {Number(diff) >= 0 ? (
+          <Flex align={"center"}>
             <StatArrow type="increase"></StatArrow>
-            <StatNumber>diff</StatNumber>
+            <StatNumber fontSize={"l"}>{diff}</StatNumber>
           </Flex>
         ) : (
           <></>
         )}
         {Number(diff) < 0 ? (
-          <Flex justify="center" align="center">
+          <Flex align="center">
             <StatArrow type="decrease"></StatArrow>
-            <StatNumber>diff</StatNumber>
+            <StatNumber fontSize={"l"}>{-diff}</StatNumber>
           </Flex>
         ) : (
           <></>

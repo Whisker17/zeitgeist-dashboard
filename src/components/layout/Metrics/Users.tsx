@@ -34,14 +34,9 @@ const Users: FC = () => {
         <Box w={400}>
           <CountPaper count={addressCount} label={`Total Addresses`} />
         </Box>
-        <Stat>
-          <StatLabel>Daily Active Addresses</StatLabel>
-          <StatNumber>2</StatNumber>
-          <StatHelpText>
-            <StatArrow type="increase" />
-            10%
-          </StatHelpText>
-        </Stat>
+        <Box w={400}>
+          <CountPaper count={addressCount} label={`Active Addresses`} />
+        </Box>
       </SimpleGrid>
       {/* Chart */}
       <SimpleGrid columns={{ sm: 1, md: 4, lg: 2 }} spacing={100} mb={8}>

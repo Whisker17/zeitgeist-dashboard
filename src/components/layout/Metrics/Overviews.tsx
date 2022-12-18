@@ -30,7 +30,7 @@ const Overviews: FC = () => {
           label={`Total Value Locked (USD)`}
           big={true}
         />
-        <StatPaper count={"200"} label={`Change`} diff={20} />
+        <StatPaper count={"20101"} label={`Change`} diff={0} />
         <CountPaper count={"Soon"} label={`APR`} />
       </SimpleGrid>
       {/* Chart */}
