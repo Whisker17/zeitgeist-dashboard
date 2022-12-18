@@ -16,8 +16,8 @@ interface Props {
 const StatPaper: FC<Props> = ({ count, label, diff, subtitle, big }) => (
   <Stat textAlign="center" justifyContent={"center"}>
     <Card h="full">
-      <Flex justifyContent={"center"}>
-        {count ? (
+      {count && diff ? (
+        <Flex justifyContent={"center"}>
           <Text
             fontSize={big ? "3xl" : "2xl"}
             fontWeight="bold"
@@ -26,26 +26,27 @@ const StatPaper: FC<Props> = ({ count, label, diff, subtitle, big }) => (
           >
             {formatCompactNumber(count)}
           </Text>
-        ) : (
-          <Skeleton w="full" maxW="200px" h={8} />
-        )}
-        {Number(diff) >= 0 ? (
-          <Flex align={"center"}>
-            <StatArrow type="increase"></StatArrow>
-            <StatNumber fontSize={"l"}>{diff}</StatNumber>
-          </Flex>
-        ) : (
-          <></>
-        )}
-        {Number(diff) < 0 ? (
-          <Flex align="center">
-            <StatArrow type="decrease"></StatArrow>
-            <StatNumber fontSize={"l"}>{-diff}</StatNumber>
-          </Flex>
-        ) : (
-          <></>
-        )}
-      </Flex>
+
+          {Number(diff) >= 0 ? (
+            <Flex align={"center"}>
+              <StatArrow type="increase"></StatArrow>
+              <StatNumber fontSize={"l"}>{diff}</StatNumber>
+            </Flex>
+          ) : (
+            <></>
+          )}
+          {Number(diff) < 0 ? (
+            <Flex align="center">
+              <StatArrow type="decrease"></StatArrow>
+              <StatNumber fontSize={"l"}>{-diff}</StatNumber>
+            </Flex>
+          ) : (
+            <></>
+          )}
+        </Flex>
+      ) : (
+        <Skeleton w="full" maxW="200px" h={8} />
+      )}
 
       <Text mt={2} fontSize="md" color="whiteAlpha.600">
         {label}

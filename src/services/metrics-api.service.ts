@@ -2,6 +2,8 @@ import SDK from "@zeitgeistpm/sdk";
 import { APPCounts } from "../models/app";
 import { GithubRepo } from "../models/github-repo";
 import { NpmDownloadsWithoutLabel } from "../models/npm-downloads";
+import { getDiffs, user, UsersWithDiffs } from "../models/users";
+import * as d3 from "d3";
 
 const ZEITGEIST_RPC_URL = "wss://ws-internal.zeitgeist.pm";
 const ZEITGEIST_GQL_URL = "https://processor.zeitgeist.pm/graphql";
@@ -41,16 +43,34 @@ const fetchTVL = async (): Promise<number> => {
   return res;
 };
 
-const fetchAddressCount = (): Promise<number> =>
-  fetch(`${ZEITGEIST_API_URL}/api/v1/token/holders`)
-    .then((response: Response) => {
-      if (!response.ok) throw new Error(response.statusText);
-      return response.json();
-    })
-    .catch((error) => {
-      console.log(error);
-      return 0;
+// TODO
+// USE PROMISE
+const fetchAddressCount = (): UsersWithDiffs => {
+  const dataSource =
+    "https://raw.githubusercontent.com/Whisker17/zeitgeist-dashboard/test/data/charts/Daily-Active-Account.csv";
+  let output: UsersWithDiffs = <UsersWithDiffs>{};
+  d3.csv(dataSource).then(function (data) {
+    const res: UsersWithDiffs = {} as UsersWithDiffs;
+    const uss: user[] = [];
+    data.forEach((index) => {
+      if (
+        index.Active !== undefined &&
+        index.New !== undefined &&
+        index.Date !== undefined
+      ) {
+        uss.push({
+          users: Number(index.New),
+          day: index.Date,
+          active: Number(index.Active),
+        });
+      }
     });
+    res.diffs = getDiffs(uss);
+    res.users = uss;
+    output = res;
+  });
+  return output;
+};
 
 const fetchTransactionsCount = (): Promise<number> => {
   return fetch(`${ZEITGEIST_SUBSCAN_URL}/api/scan/metadata`, {

@@ -13,14 +13,16 @@ import { MetricsApi } from "../../../services/metrics-api.service";
 import CountPaper from "../../metrics/count-papers";
 import UsersPaper from "../../metrics/users-paper";
 import Title from "../Title";
+import { UsersWithDiffs } from "../../../models/users";
+import StatPaper from "../../metrics/stat-papers";
 
 const Users: FC = () => {
-  const [addressCount, setAddressCount] = useState<number | undefined>(
+  const [addressCount, setAddressCount] = useState<UsersWithDiffs | undefined>(
     undefined
   );
 
   useEffect(() => {
-    MetricsApi.fetchAddressCount().then(setAddressCount);
+    setAddressCount(MetricsApi.fetchAddressCount());
   });
 
   return (
@@ -32,11 +34,15 @@ const Users: FC = () => {
       {/* Stats */}
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 2 }} spacing={200} mb={8}>
         <Box w={400}>
-          <CountPaper count={addressCount} label={`Total Addresses`} />
+          <StatPaper
+            count={addressCount?.users[-1].users}
+            label={`Total Addresses`}
+            diff={addressCount?.diffs.diffsForTotal.day}
+          />
         </Box>
-        <Box w={400}>
+        {/* <Box w={400}>
           <CountPaper count={addressCount} label={`Active Addresses`} />
-        </Box>
+        </Box> */}
       </SimpleGrid>
       {/* Chart */}
       <SimpleGrid columns={{ sm: 1, md: 4, lg: 2 }} spacing={100} mb={8}>
