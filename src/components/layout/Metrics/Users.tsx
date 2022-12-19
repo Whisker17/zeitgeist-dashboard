@@ -1,5 +1,6 @@
 import { Box, HStack, Link, VStack, SimpleGrid, Text } from "@chakra-ui/layout";
 import {
+  Skeleton,
   Stat,
   StatArrow,
   StatHelpText,
@@ -34,11 +35,15 @@ const Users: FC = () => {
       {/* Stats */}
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 2 }} spacing={200} mb={8}>
         <Box w={400}>
-          <StatPaper
-            count={addressCount?.users[-1].users}
-            label={`Total Addresses`}
-            diff={addressCount?.diffs.diffsForTotal.day}
-          />
+          {addressCount ? (
+            <StatPaper
+              count={addressCount.users[addressCount.users.length - 1].users}
+              label={`Total Addresses`}
+              diff={addressCount?.diffs.diffsForTotal.day}
+            />
+          ) : (
+            <Skeleton w="full" maxW="200px" h={8} />
+          )}
         </Box>
         {/* <Box w={400}>
           <CountPaper count={addressCount} label={`Active Addresses`} />
