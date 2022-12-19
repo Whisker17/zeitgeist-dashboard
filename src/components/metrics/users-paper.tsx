@@ -42,7 +42,7 @@ interface Props {
 const UsersPaper: FC<Props> = ({ label }) => {
   const theme = useTheme();
   const [values, setValues] = useState<UsersChart>();
-  const [users, setTransactions] = useState<Users>();
+  const [users, setUsers] = useState<Users>();
   const [cumulative, setCumulative] = useState(true);
 
   useEffect(() => {
@@ -69,7 +69,7 @@ const UsersPaper: FC<Props> = ({ label }) => {
         res.users = uss;
         return res;
       })
-      .then((res) => setTransactions(res));
+      .then((res) => setUsers(res));
   }, [label]);
 
   useEffect(() => {

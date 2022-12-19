@@ -45,31 +45,34 @@ const fetchTVL = async (): Promise<number> => {
 
 // TODO
 // USE PROMISE
-const fetchAddressCount = (): UsersWithDiffs => {
+const fetchAddressCount = (): Promise<UsersWithDiffs> => {
   const dataSource =
     "https://raw.githubusercontent.com/Whisker17/zeitgeist-dashboard/test/data/charts/Daily-Active-Account.csv";
-  let output: UsersWithDiffs = <UsersWithDiffs>{};
-  d3.csv(dataSource).then(function (data) {
-    const res: UsersWithDiffs = {} as UsersWithDiffs;
-    const uss: user[] = [];
-    data.forEach((index) => {
-      if (
-        index.Active !== undefined &&
-        index.New !== undefined &&
-        index.Date !== undefined
-      ) {
-        uss.push({
-          users: Number(index.New),
-          day: index.Date,
-          active: Number(index.Active),
-        });
-      }
+  return d3
+    .csv(dataSource)
+    .then(function (data) {
+      const res: UsersWithDiffs = {} as UsersWithDiffs;
+      const uss: user[] = [];
+      data.forEach((index) => {
+        if (
+          index.Active !== undefined &&
+          index.New !== undefined &&
+          index.Date !== undefined
+        ) {
+          uss.push({
+            users: Number(index.New),
+            day: index.Date,
+            active: Number(index.Active),
+          });
+        }
+      });
+      res.diffs = getDiffs(uss);
+      res.users = uss;
+      return res;
+    })
+    .then((res) => {
+      return res;
     });
-    res.diffs = getDiffs(uss);
-    res.users = uss;
-    output = res;
-  });
-  return output;
 };
 
 const fetchTransactionsCount = (): Promise<number> => {
