@@ -16,7 +16,8 @@ interface Props {
 const StatPaper: FC<Props> = ({ count, label, diff, subtitle, big }) => (
   <Stat textAlign="center" justifyContent={"center"}>
     <Card h="full">
-      {count && diff ? (
+      {/* Need to check if diff is null */}
+      {count ? (
         <Flex justifyContent={"center"}>
           <Text
             fontSize={big ? "3xl" : "2xl"}

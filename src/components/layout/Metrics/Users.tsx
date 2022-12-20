@@ -36,14 +36,18 @@ const Users: FC = () => {
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 2 }} spacing={200} mb={8}>
         <Box w={400}>
           <StatPaper
-            count={addressCount?.users[addressCount.users.length - 1].users}
+            count={addressCount?.total}
             label={`Total Addresses`}
             diff={addressCount?.diffs.diffsForTotal.day}
           />
         </Box>
-        {/* <Box w={400}>
-          <CountPaper count={addressCount} label={`Active Addresses`} />
-        </Box> */}
+        <Box w={400}>
+          <StatPaper
+            count={addressCount?.users[addressCount.users.length - 1].active}
+            label={`Active Addresses`}
+            diff={addressCount?.diffs.diffsForActive.day}
+          />
+        </Box>
       </SimpleGrid>
       {/* Chart */}
       <SimpleGrid columns={{ sm: 1, md: 4, lg: 2 }} spacing={100} mb={8}>

@@ -21,22 +21,35 @@ export interface UsersChart {
 }
 
 export interface UsersWithDiffs {
+  total: number;
   users: user[];
   diffs: { diffsForTotal: diffs; diffsForActive: diffs };
 }
 
+// TODO
+// Need to refactor
 export function getDiffs(data: user[]) {
   let diffsForTotal: diffs = <diffs>{};
   let diffsForActive: diffs = <diffs>{};
+
+  diffsForTotal.day = data[data.length - 1].users;
+
+  let total = 0;
+
+  if (data.length < 7) {
+    data.forEach((value) => {
+      total += value.users;
+    });
+
+    diffsForTotal.week = diffsForTotal.month = diffsForTotal.ever = total;
+  } else if (data.length >= 7 && data.length < 30) {
+    data.reduceRight((accumulator, currentValue, index) => {
+      total += value.users;
+    });
+  }
+
   switch (true) {
     case data.length < 7:
-      diffsForTotal.day =
-        data[data.length - 1].users - data[data.length - 2].users;
-      diffsForTotal.week =
-        diffsForTotal.month =
-        diffsForTotal.ever =
-          data[data.length - 1].users - data[0].users;
-
       diffsForActive.day =
         data[data.length - 1].active - data[data.length - 2].active;
       diffsForActive.week =
@@ -45,8 +58,6 @@ export function getDiffs(data: user[]) {
           data[data.length - 1].active - data[0].active;
       break;
     case data.length >= 7 && data.length < 30:
-      diffsForTotal.day =
-        data[data.length - 1].users - data[data.length - 2].users;
       diffsForTotal.week =
         data[data.length - 1].users - data[data.length - 8].users;
       diffsForTotal.month = diffsForTotal.ever =
@@ -60,8 +71,6 @@ export function getDiffs(data: user[]) {
         data[data.length - 1].active - data[0].active;
       break;
     case data.length >= 30:
-      diffsForTotal.day =
-        data[data.length - 1].users - data[data.length - 2].users;
       diffsForTotal.week =
         data[data.length - 1].users - data[data.length - 8].users;
       diffsForTotal.month =

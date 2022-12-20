@@ -43,9 +43,8 @@ const fetchTVL = async (): Promise<number> => {
   return res;
 };
 
-// TODO
-// USE PROMISE
 const fetchAddressCount = (): Promise<UsersWithDiffs> => {
+  let total = 0;
   const dataSource =
     "https://raw.githubusercontent.com/Whisker17/zeitgeist-dashboard/test/data/charts/Daily-Active-Account.csv";
   return d3
@@ -64,10 +63,12 @@ const fetchAddressCount = (): Promise<UsersWithDiffs> => {
             day: index.Date,
             active: Number(index.Active),
           });
+          total += Number(index.New);
         }
       });
       res.diffs = getDiffs(uss);
       res.users = uss;
+      res.total = total;
       return res;
     })
     .then((res) => {
