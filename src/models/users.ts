@@ -43,9 +43,29 @@ export function getDiffs(data: user[]) {
 
     diffsForTotal.week = diffsForTotal.month = diffsForTotal.ever = total;
   } else if (data.length >= 7 && data.length < 30) {
-    data.reduceRight((accumulator, currentValue, index) => {
-      total += value.users;
-    });
+    data
+      .slice()
+      .reverse()
+      .forEach((value, index) => {
+        total += value.users;
+        if (index === 6) {
+          diffsForTotal.week = total;
+        }
+      });
+    diffsForTotal.month = diffsForTotal.ever = total;
+  } else if (data.length >= 30) {
+    data
+      .slice()
+      .reverse()
+      .forEach((value, index) => {
+        total += value.users;
+        if (index === 6) {
+          diffsForTotal.week = total;
+        } else if (index === 29) {
+          diffsForTotal.month = total;
+        }
+      });
+    diffsForTotal.ever = total;
   }
 
   switch (true) {
