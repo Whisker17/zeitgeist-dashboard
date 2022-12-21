@@ -47,7 +47,7 @@ const NpmDownloadsPaper: FC<Props> = ({ name, label }) => {
   const theme = useTheme();
   const [values, setValues] = useState<NpmDownloadsChart>();
   const [npmDownloads, setNpmDownloads] = useState<NpmDownloads>();
-  const [cumulative, setCumulative] = useState(true);
+  const [cumulative, setCumulative] = useState(false);
   const yesterday = new Date(
     Date.now() -
       1 * 864e5 -

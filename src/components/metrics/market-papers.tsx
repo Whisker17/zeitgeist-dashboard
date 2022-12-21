@@ -39,7 +39,7 @@ const APPPaper: FC<Props> = ({ name }) => {
   const theme = useTheme();
   const [values, setValues] = useState<APPCountsChart>();
   const [APPCounts, setAPPCounts] = useState<APPCounts>();
-  const [cumulative, setCumulative] = useState(true);
+  const [cumulative, setCumulative] = useState(false);
 
   useEffect(() => {
     MetricsApi.fetchAPPCounts(name).then((result) => setAPPCounts(result));

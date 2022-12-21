@@ -43,7 +43,7 @@ const UsersPaper: FC<Props> = ({ label }) => {
   const theme = useTheme();
   const [values, setValues] = useState<UsersChart>();
   const [users, setUsers] = useState<Users>();
-  const [cumulative, setCumulative] = useState(true);
+  const [cumulative, setCumulative] = useState(false);
 
   useEffect(() => {
     const dataSource =

@@ -43,7 +43,7 @@ const TransactionsPaper: FC<Props> = ({ label }) => {
   const theme = useTheme();
   const [values, setValues] = useState<TransactionsChart>();
   const [transactions, setTransactions] = useState<Transactions>();
-  const [cumulative, setCumulative] = useState(true);
+  const [cumulative, setCumulative] = useState(false);
 
   useEffect(() => {
     const dataSource =
