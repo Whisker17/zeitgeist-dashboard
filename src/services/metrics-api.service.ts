@@ -4,6 +4,8 @@ import { GithubRepo } from "../models/github-repo";
 import { NpmDownloadsWithoutLabel } from "../models/npm-downloads";
 import { getDiffs, user, UsersWithDiffs } from "../models/users";
 import * as d3 from "d3";
+import { create, mainnetIndexer } from "@zeitgeistpm/sdk-next";
+import Decimal from "decimal.js";
 
 const ZEITGEIST_RPC_URL = "wss://ws-internal.zeitgeist.pm";
 const ZEITGEIST_GQL_URL = "https://processor.zeitgeist.pm/graphql";
@@ -29,6 +31,13 @@ const fetchGithubRepo = (
     return response.json();
   });
 
+const fetchActiveMarketsCount = async (): Promise<number> => {
+  const sdk = await create(mainnetIndexer());
+
+  const res = await sdk.context.indexer.marketStatusCount({ status: "Active" });
+  return res.markets.length;
+};
+
 const fetchMarketCount = async (): Promise<number> => {
   const sdk = await SDK.initialize(ZEITGEIST_RPC_URL);
 
@@ -36,11 +45,24 @@ const fetchMarketCount = async (): Promise<number> => {
   return res;
 };
 
-const fetchTVL = async (): Promise<number> => {
-  const sdk = await SDK.initialize(ZEITGEIST_RPC_URL);
+const fetchTotalLiquidity = async (): Promise<number> => {
+  const sdk = await create(mainnetIndexer());
 
-  const res = await sdk.models.getMarketCount();
-  return res;
+  const pools = await sdk.model.swaps.listPools({});
+  const saturatedIndex = await sdk.model.swaps.saturatedPoolsIndex(pools);
+  const total =
+    pools?.reduce((acc, pool) => {
+      const saturatedData = saturatedIndex?.[pool.poolId];
+      if (
+        saturatedData &&
+        saturatedData.market.status === "Active" &&
+        saturatedData.liquidity
+      ) {
+        return acc.plus(saturatedData.liquidity);
+      }
+      return acc;
+    }, new Decimal(0)) ?? new Decimal(0);
+  return Number(total.toNumber.toString);
 };
 
 const fetchAddressCount = (): Promise<UsersWithDiffs> => {
@@ -124,7 +146,8 @@ const fetchNpmDownloads = (
 export const MetricsApi = {
   fetchGithubRepo,
   fetchMarketCount,
-  fetchTVL,
+  fetchActiveMarketsCount,
+  fetchTotalLiquidity,
   fetchAddressCount,
   fetchTransactionsCount,
   fetchAPPCounts,

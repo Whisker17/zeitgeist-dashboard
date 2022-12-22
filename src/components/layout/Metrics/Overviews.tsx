@@ -14,7 +14,7 @@ const Overviews: FC = () => {
   const [TVL, setTVL] = useState<number | undefined>(undefined);
 
   useEffect(() => {
-    MetricsApi.fetchTVL().then(setTVL);
+    MetricsApi.fetchTotalLiquidity().then(setTVL);
   });
 
   return (
