@@ -3038,12 +3038,12 @@
   resolved "https://registry.yarnpkg.com/@zag-js/focus-visible/-/focus-visible-0.1.0.tgz#9777bbaff8316d0b3a14a9095631e1494f69dbc7"
   integrity sha512-PeaBcTmdZWcFf7n1aM+oiOdZc+sy14qi0emPIeUuGMTjbP0xLGrZu43kdpHnWSXy7/r4Ubp/vlg50MCV8+9Isg==
 
-"@zeitgeistpm/augment-api@^2.2.2":
+"@zeitgeistpm/augment-api@^2.2.2", "@zeitgeistpm/augment-api@^2.4.0":
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/@zeitgeistpm/augment-api/-/augment-api-2.5.0.tgz#fd81a7517795ba92e6a264392d9d34bd31492739"
   integrity sha512-s51gvzJxD7zHgPGtR4DlireHcyDF9iv4yNQDw3Hgh8DYsMKn6A9MeKJmKUh371bDocbCfy1jIw3jbMY6pgWe9g==
 
-"@zeitgeistpm/indexer@^2.3.1":
+"@zeitgeistpm/indexer@^2.4.0":
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/@zeitgeistpm/indexer/-/indexer-2.5.0.tgz#90d66df98627ede944e1521f5d30685940d66fb9"
   integrity sha512-MAsvtUIh/PpnGJ+jTPzgw5CatMriJnvdlNhh/WTMFO5TepfkDz08GpeFuVUBcyMvNZFxg3fFZM9piw4apucw1A==
@@ -3060,18 +3060,19 @@
     "@zeitgeistpm/augment-api" "^2.2.2"
     "@zeitgeistpm/utility" "^2.3.6"
 
-"@zeitgeistpm/sdk-next@npm:@zeitgeistpm/sdk@2.5.1":
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/@zeitgeistpm/sdk/-/sdk-2.5.1.tgz#1f1f1973012fe3039d4d1866d4f1d443feb30f49"
-  integrity sha512-ex7ibhx96OQwCtXqktPPjOyFaDs0rk+W1LQI0qFxwlWKuzCFqy75NxdjyhPSouBlgUxqKhnJVg9LTCzzeqHiRA==
+"@zeitgeistpm/sdk-next@npm:@zeitgeistpm/sdk@2.8.0":
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/@zeitgeistpm/sdk/-/sdk-2.8.0.tgz#59627b3c97554c862cc32fa7e8de3a472fb95146"
+  integrity sha512-AlXnQ1ZxM+y4GLquxm5uh7UlD0/IXREw6Oqe7fu3Fkej6vM+3B7a1Zfxybj+FD/eFj3mONA8dNs0aFebxZtutg==
   dependencies:
-    "@zeitgeistpm/augment-api" "^2.2.2"
-    "@zeitgeistpm/indexer" "^2.3.1"
+    "@zeitgeistpm/augment-api" "^2.4.0"
+    "@zeitgeistpm/indexer" "^2.4.0"
     "@zeitgeistpm/rpc" "^2.2.5"
-    "@zeitgeistpm/utility" "^2.3.7"
+    "@zeitgeistpm/utility" "^2.4.2"
     "@zeitgeistpm/web3.storage" "^2.2.1"
     cids "^1.1.9"
     decimal.js "^10.4.2"
+    lodash-es "^4.17.21"
     lodash.memoize "^4.1.2"
     ms "^2.1.3"
     polly-js "^1.8.3"
@@ -3111,7 +3112,7 @@
     "@zeitgeistpm/type-defs" "^0.9.0"
     axios "^0.21.1"
 
-"@zeitgeistpm/utility@^2.3.1", "@zeitgeistpm/utility@^2.3.6", "@zeitgeistpm/utility@^2.3.7":
+"@zeitgeistpm/utility@^2.3.1", "@zeitgeistpm/utility@^2.3.6", "@zeitgeistpm/utility@^2.4.2":
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/@zeitgeistpm/utility/-/utility-2.5.1.tgz#12375344124f64c21b681214757db51d647b68f3"
   integrity sha512-DTuJHVngv1PCbjiJxgfo7fAacsrHZYFi4v1WlBJozJ1TvWNrK9wylJZgpYJ+uDhbfk2H8sl8vgIPRL1eRKLLEw==
@@ -6538,6 +6539,11 @@ locate-path@^6.0.0:
   integrity sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==
   dependencies:
     p-locate "^5.0.0"
+
+lodash-es@^4.17.21:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
+  integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
 
 lodash.memoize@^4.1.2:
   version "4.1.2"

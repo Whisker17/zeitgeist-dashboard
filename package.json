@@ -26,7 +26,7 @@
     "@types/d3": "^7.4.0",
     "@types/react-fontawesome": "^1.6.5",
     "@zeitgeistpm/sdk": "0.9.3",
-    "@zeitgeistpm/sdk-next": "npm:@zeitgeistpm/sdk@2.5.1",
+    "@zeitgeistpm/sdk-next": "npm:@zeitgeistpm/sdk@2.8.0",
     "babel-plugin-macros": "^3.1.0",
     "chart.js": "^3.9.1",
     "d3": "^7.6.1",

@@ -62,7 +62,7 @@ const fetchTotalLiquidity = async (): Promise<number> => {
       }
       return acc;
     }, new Decimal(0)) ?? new Decimal(0);
-  return Number(total.toNumber.toString);
+  return total.div(10 ** 10).toNumber();
 };
 
 const fetchAddressCount = (): Promise<UsersWithDiffs> => {
