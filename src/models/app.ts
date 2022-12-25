@@ -5,3 +5,7 @@ export interface APPCounts {
 export interface APPCountsChart {
   message: { start: string; end: string; count: number }[];
 }
+
+export interface MarketsTags {
+  metrics: { tag: string; count: number }[];
+}

@@ -43,7 +43,6 @@ const Applications: FC = () => {
       {/* Stats */}
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={200} mb={8}>
         <CountPaper count={TVL} label={`Total Markets Value (USD)`} />
-
         <CountPaper count={ActiveMarketsCount} label={`Active Markets Count`} />
         <CountPaper count={MarketsCount} label={`Total Markets Count`} />
       </SimpleGrid>

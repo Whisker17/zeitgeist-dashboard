@@ -38,6 +38,8 @@ const fetchActiveMarketsCount = async (): Promise<number> => {
   return res.markets.length;
 };
 
+// TODO
+// different from what I got from graphql
 const fetchMarketCount = async (): Promise<number> => {
   const sdk = await SDK.initialize(ZEITGEIST_RPC_URL);
 
@@ -143,6 +145,18 @@ const fetchNpmDownloads = (
       return 0;
     });
 
+const fetchTags = (active: boolean): Promise<APPCounts> => {
+  return fetch(`${ZEITGEIST_PRO_URL}/api/${name}`)
+    .then((response: Response) => {
+      if (!response.ok) throw new Error(response.statusText);
+      return response.json();
+    })
+    .catch((error) => {
+      console.log(error);
+      return 0;
+    });
+};
+
 export const MetricsApi = {
   fetchGithubRepo,
   fetchMarketCount,
@@ -152,4 +166,5 @@ export const MetricsApi = {
   fetchTransactionsCount,
   fetchAPPCounts,
   fetchNpmDownloads,
+  fetchTags,
 };

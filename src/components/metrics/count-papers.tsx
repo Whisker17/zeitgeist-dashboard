@@ -1,5 +1,5 @@
 import { Flex, Text } from "@chakra-ui/layout";
-import { Skeleton } from "@chakra-ui/react";
+import { Skeleton, Spinner } from "@chakra-ui/react";
 import type { FC } from "react";
 
 import { formatCompactNumber } from "../../services/number.service";
@@ -21,7 +21,7 @@ const CountPaper: FC<Props> = ({ count, label, subtitle, big }) => (
             {formatCompactNumber(count)}
           </Text>
         ) : (
-          <Skeleton w="full" maxW="200px" h={8} />
+          <Spinner h="30px" w="30px" />
         )}
       </Flex>
 

@@ -1,5 +1,11 @@
 import { Flex, Text } from "@chakra-ui/layout";
-import { Skeleton, Stat, StatArrow, StatNumber } from "@chakra-ui/react";
+import {
+  Skeleton,
+  Spinner,
+  Stat,
+  StatArrow,
+  StatNumber,
+} from "@chakra-ui/react";
 import type { FC } from "react";
 
 import { formatCompactNumber } from "../../services/number.service";
@@ -46,7 +52,7 @@ const StatPaper: FC<Props> = ({ count, label, diff, subtitle, big }) => (
           )}
         </Flex>
       ) : (
-        <Skeleton w="full" maxW="200px" h={8} />
+        <Spinner h="30px" w="30px" />
       )}
 
       <Text mt={2} fontSize="md" color="whiteAlpha.600">
