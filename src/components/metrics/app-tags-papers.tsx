@@ -3,33 +3,17 @@ import { Skeleton } from "@chakra-ui/react";
 import { useTheme } from "@emotion/react";
 import { brands, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
+import { Chart as ChartJS, Tooltip, Legend, ArcElement } from "chart.js";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
-import { APPCounts, APPCountsChart, MarketsTags } from "../../models/app";
+import { MarketsTags } from "../../models/app";
 
 import { MetricsApi } from "../../services/metrics-api.service";
-import { toAPPCountsDailyChart } from "../../services/metrics.service";
 import Card from "../card/Card";
 import CardContentLoading from "../card/CardContentLoading";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface Props {
   name: string;
@@ -39,17 +23,11 @@ interface Props {
 const TagsPaper: FC<Props> = ({ name, active }) => {
   const theme = useTheme();
   const [MarketsTags, setMarketsTags] = useState<MarketsTags>();
-  const [cumulative, setCumulative] = useState(false);
+  const [filterEmpty, setFilterEmpty] = useState(false);
 
   useEffect(() => {
     MetricsApi.fetchTags(active).then((result) => setMarketsTags(result));
   }, [active]);
-
-  useEffect(() => {
-    if (APPCounts !== undefined) {
-      setValues(toAPPCountsDailyChart(APPCounts, cumulative));
-    }
-  }, [APPCounts, cumulative]);
 
   const renderLittleSkeleton = () => {
     return <Skeleton h={2} w="30px" />;
@@ -75,16 +53,6 @@ const TagsPaper: FC<Props> = ({ name, active }) => {
             </Link>
           </Box>
         </Flex>
-        <HStack fontSize="xs" color="whiteAlpha.600">
-          {values ? (
-            <Text fontWeight="bold">
-              {values.message[values.message.length - 1].count}
-            </Text>
-          ) : (
-            renderLittleSkeleton()
-          )}
-          <Text>{cumulative ? "in total" : "in yesterday"}</Text>
-        </HStack>
       </VStack>
       {values ? (
         <Flex height={180} direction="column">

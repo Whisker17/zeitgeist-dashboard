@@ -170,23 +170,23 @@ const fetchTags = async (active: boolean): Promise<MarketsTags> => {
   }>(tagsQuery);
 
   let i = 0;
-  const tagsArray = res.markets.reduce((arr, curr) => {
+  var tagsMaps = res.markets.reduce((arr, curr) => {
     if (curr.tags === null || curr.tags.length === 0) {
       i++;
     } else {
       curr.tags.forEach((index) => {
-        if (!arr.includes(index)) {
-          arr.push(index, 1);
+        if (!arr.has(index)) {
+          arr.set(index, 1);
         } else {
-          arr[arr.indexOf(index)]++;
+          arr.set(index, arr.get(index) + 1);
         }
       });
     }
 
     return arr;
-  }, new Array());
-  tagsArray.push("Others", i);
-  return { metrics: tagsArray };
+  }, new Map());
+  tagsMaps.set("Others", i);
+  return { metrics: Array.from(tagsMaps, ([tag, count]) => ({ tag, count })) };
 };
 
 export const MetricsApi = {
