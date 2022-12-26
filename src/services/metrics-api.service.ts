@@ -1,11 +1,12 @@
 import SDK from "@zeitgeistpm/sdk";
-import { APPCounts } from "../models/app";
+import { APPCounts, MarketsTags } from "../models/app";
 import { GithubRepo } from "../models/github-repo";
 import { NpmDownloadsWithoutLabel } from "../models/npm-downloads";
 import { getDiffs, user, UsersWithDiffs } from "../models/users";
 import * as d3 from "d3";
 import { create, mainnetIndexer } from "@zeitgeistpm/sdk-next";
 import Decimal from "decimal.js";
+import { gql, GraphQLClient } from "graphql-request";
 
 const ZEITGEIST_RPC_URL = "wss://ws-internal.zeitgeist.pm";
 const ZEITGEIST_GQL_URL = "https://processor.zeitgeist.pm/graphql";
@@ -145,16 +146,47 @@ const fetchNpmDownloads = (
       return 0;
     });
 
-const fetchTags = (active: boolean): Promise<APPCounts> => {
-  return fetch(`${ZEITGEIST_PRO_URL}/api/${name}`)
-    .then((response: Response) => {
-      if (!response.ok) throw new Error(response.statusText);
-      return response.json();
-    })
-    .catch((error) => {
-      console.log(error);
-      return 0;
-    });
+const fetchTags = async (active: boolean): Promise<MarketsTags> => {
+  const tagsQuery = active
+    ? gql`
+        query totalTagsQuery {
+          markets(where: { status_eq: "Active" }) {
+            tags
+          }
+        }
+      `
+    : gql`
+        query totalTagsQuery {
+          markets {
+            tags
+          }
+        }
+      `;
+  const endPoint = new GraphQLClient(ZEITGEIST_GQL_URL);
+  const res = await endPoint.request<{
+    markets: {
+      tags: string[];
+    }[];
+  }>(tagsQuery);
+
+  let i = 0;
+  const tagsArray = res.markets.reduce((arr, curr) => {
+    if (curr.tags === null || curr.tags.length === 0) {
+      i++;
+    } else {
+      curr.tags.forEach((index) => {
+        if (!arr.includes(index)) {
+          arr.push(index, 1);
+        } else {
+          arr[arr.indexOf(index)]++;
+        }
+      });
+    }
+
+    return arr;
+  }, new Array());
+  tagsArray.push("Others", i);
+  return { metrics: tagsArray };
 };
 
 export const MetricsApi = {
