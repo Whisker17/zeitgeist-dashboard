@@ -54,7 +54,7 @@ const TagsPaper: FC<Props> = ({ name, active }) => {
           </Box>
         </Flex>
       </VStack>
-      {values ? (
+      {MarketsTags ? (
         <Flex height={180} direction="column">
           <Pie
             options={{
@@ -101,7 +101,7 @@ const TagsPaper: FC<Props> = ({ name, active }) => {
               },
             }}
             data={{
-              labels: values.message.map((day) => day.end),
+              labels: MarketsTags.metrics.map((day) => day.end),
               datasets: [
                 {
                   label: name,
@@ -115,7 +115,7 @@ const TagsPaper: FC<Props> = ({ name, active }) => {
             fontSize="sm"
             mt={3}
             justifyContent="center"
-            onClick={() => setCumulative(!cumulative)}
+            onClick={() => setFilterEmpty(!filterEmpty)}
             opacity={0.5}
             transition=".4s all ease"
             _hover={{
@@ -123,7 +123,9 @@ const TagsPaper: FC<Props> = ({ name, active }) => {
             }}
           >
             <Text as="button" size="sm">
-              {cumulative ? "Cumulative chart" : "Non cumulative chart"}
+              {filterEmpty
+                ? "Filter Empty Tags Markets"
+                : "Include Empty Tags Markets"}
             </Text>
             <FontAwesomeIcon
               fontSize="14px"
