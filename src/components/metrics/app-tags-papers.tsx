@@ -8,6 +8,7 @@ import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
 import { MarketsTags } from "../../models/app";
+import { borderColors, colors } from "../../models/utils";
 
 import { MetricsApi } from "../../services/metrics-api.service";
 import Card from "../card/Card";
@@ -29,9 +30,6 @@ const TagsPaper: FC<Props> = ({ name, active }) => {
     MetricsApi.fetchTags(active).then((result) => setMarketsTags(result));
   }, [active]);
 
-  const renderLittleSkeleton = () => {
-    return <Skeleton h={2} w="30px" />;
-  };
   return (
     <Card height={300}>
       <VStack alignItems="flex-start" spacing={0} mb={4}>
@@ -54,7 +52,7 @@ const TagsPaper: FC<Props> = ({ name, active }) => {
           </Box>
         </Flex>
       </VStack>
-      {values ? (
+      {MarketsTags ? (
         <Flex height={180} direction="column">
           <Pie
             options={{
@@ -68,24 +66,6 @@ const TagsPaper: FC<Props> = ({ name, active }) => {
               hover: {
                 mode: "nearest",
                 intersect: true,
-              },
-              scales: {
-                xAxis: {
-                  display: false,
-                },
-                y: {
-                  grid: {
-                    display: false,
-                  },
-                  ticks: {
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
-                    color: theme.colors.whiteAlpha["600"],
-                    font: {
-                      size: 12,
-                    },
-                  },
-                },
               },
               plugins: {
                 tooltip: {
@@ -101,12 +81,14 @@ const TagsPaper: FC<Props> = ({ name, active }) => {
               },
             }}
             data={{
-              labels: values.message.map((day) => day.end),
+              labels: MarketsTags.metrics.map((markets) => markets.tag),
               datasets: [
                 {
-                  label: name,
-                  data: values.message.map((week) => week.count),
-                  backgroundColor: theme.colors.primary["500"],
+                  label: "# of counts",
+                  data: MarketsTags.metrics.map((markets) => markets.count),
+                  backgroundColor: colors,
+                  borderColor: borderColors,
+                  borderWidth: 1,
                 },
               ],
             }}
@@ -115,7 +97,7 @@ const TagsPaper: FC<Props> = ({ name, active }) => {
             fontSize="sm"
             mt={3}
             justifyContent="center"
-            onClick={() => setCumulative(!cumulative)}
+            onClick={() => setFilterEmpty(!filterEmpty)}
             opacity={0.5}
             transition=".4s all ease"
             _hover={{
@@ -123,7 +105,7 @@ const TagsPaper: FC<Props> = ({ name, active }) => {
             }}
           >
             <Text as="button" size="sm">
-              {cumulative ? "Cumulative chart" : "Non cumulative chart"}
+              {filterEmpty ? "Filter Empty Tags" : "With Empty Tags"}
             </Text>
             <FontAwesomeIcon
               fontSize="14px"

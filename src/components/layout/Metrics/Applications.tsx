@@ -14,6 +14,7 @@ import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { MetricsApi } from "../../../services/metrics-api.service";
 import { formatCompactNumber } from "../../../services/number.service";
+import TagsPaper from "../../metrics/app-tags-papers";
 
 import CountPaper from "../../metrics/count-papers";
 import APPPaper from "../../metrics/market-papers";
@@ -56,6 +57,9 @@ const Applications: FC = () => {
         </Box>
         <Box w={1100} mt={8}>
           <APPPaper name="newAccounts" />
+        </Box>
+        <Box w={1100} mt={8}>
+          <TagsPaper name="App" >
         </Box>
       </Flex>
     </VStack>
