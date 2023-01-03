@@ -105,7 +105,9 @@ const TagsPaper: FC<Props> = ({ name, active }) => {
             }}
           >
             <Text as="button" size="sm">
-              {filterEmpty ? "Filter Empty Tags" : "With Empty Tags"}
+              {filterEmpty
+                ? "Filter Empty Tags Markets"
+                : "Include Empty Tags Markets"}
             </Text>
             <FontAwesomeIcon
               fontSize="14px"
