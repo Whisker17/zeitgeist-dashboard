@@ -1,5 +1,4 @@
 import { Box, Flex, HStack, Text, VStack, Link } from "@chakra-ui/layout";
-import { Skeleton } from "@chakra-ui/react";
 import { useTheme } from "@emotion/react";
 import { brands, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,6 +12,7 @@ import { borderColors, colors } from "../../models/utils";
 import { MetricsApi } from "../../services/metrics-api.service";
 import Card from "../card/Card";
 import CardContentLoading from "../card/CardContentLoading";
+import { toFilterTagsChart } from "../../services/app.service";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -25,13 +25,20 @@ const TagsPaper: FC<Props> = ({ name, active }) => {
   const theme = useTheme();
   const [MarketsTags, setMarketsTags] = useState<MarketsTags>();
   const [filterEmpty, setFilterEmpty] = useState(false);
+  const [values, setValues] = useState<MarketsTags>();
 
   useEffect(() => {
     MetricsApi.fetchTags(active).then((result) => setMarketsTags(result));
   }, [active]);
 
+  useEffect(() => {
+    if (MarketsTags !== undefined) {
+      setValues(toFilterTagsChart(MarketsTags, filterEmpty));
+    }
+  }, [MarketsTags, filterEmpty]);
+
   return (
-    <Card height={300}>
+    <Card height={600}>
       <VStack alignItems="flex-start" spacing={0} mb={4}>
         <Flex w="full" justify="space-between" alignItems="flex-start" mb={1}>
           <HStack as="h3" fontSize="lg" fontWeight="bold">
@@ -52,8 +59,8 @@ const TagsPaper: FC<Props> = ({ name, active }) => {
           </Box>
         </Flex>
       </VStack>
-      {MarketsTags ? (
-        <Flex height={180} direction="column">
+      {values ? (
+        <Flex height={500} direction="column">
           <Pie
             options={{
               responsive: true,
@@ -81,11 +88,11 @@ const TagsPaper: FC<Props> = ({ name, active }) => {
               },
             }}
             data={{
-              labels: MarketsTags.metrics.map((markets) => markets.tag),
+              labels: values.metrics.map((markets) => markets.tag),
               datasets: [
                 {
                   label: "# of counts",
-                  data: MarketsTags.metrics.map((markets) => markets.count),
+                  data: values.metrics.map((markets) => markets.count),
                   backgroundColor: colors,
                   borderColor: borderColors,
                   borderWidth: 1,
