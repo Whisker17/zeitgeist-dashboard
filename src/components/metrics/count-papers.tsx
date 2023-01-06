@@ -13,7 +13,13 @@ interface Props {
 }
 
 const CountPaper: FC<Props> = ({ count, label, subtitle, big }) => (
-  <Card textAlign="center">
+  <Card
+    textAlign="center"
+    _hover={{
+      scale: 1.3,
+      bg: "blue.500",
+    }}
+  >
     <Flex h="full" direction="column" justify="center" align="center">
       <Flex>
         {count ? (

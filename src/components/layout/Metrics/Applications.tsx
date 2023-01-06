@@ -54,13 +54,13 @@ const Applications: FC = () => {
         );
       case 2:
         return (
-          <Box w={1100} mt={8}>
+          <Box w={1100} mt={16}>
             <TagsPaper name="App" active={true} />
           </Box>
         );
-      default:
+      case 3:
         return (
-          <Box w={1100} mt={8}>
+          <Box w={1100} mt={16}>
             <TagsPaper name="App" active={false} />
           </Box>
         );
