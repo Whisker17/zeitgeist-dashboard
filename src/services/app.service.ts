@@ -5,10 +5,12 @@ export const toFilterTagsChart = (
   filter: boolean
 ): MarketsTags => {
   if (filter) {
-    marketsTags.metrics.splice(
-      marketsTags.metrics.findIndex((item) => item.tag === "Others"),
-      1
+    const index = marketsTags.metrics.findIndex(
+      (item) => item.tag === "Others"
     );
+    if (index !== -1) {
+      marketsTags.metrics.splice(index, 1);
+    }
   }
   return marketsTags;
 };

@@ -29,13 +29,10 @@ const TagsPaper: FC<Props> = ({ name, active }) => {
 
   useEffect(() => {
     MetricsApi.fetchTags(active).then((result) => setMarketsTags(result));
-  }, [active]);
-
-  useEffect(() => {
     if (MarketsTags !== undefined) {
       setValues(toFilterTagsChart(MarketsTags, filterEmpty));
     }
-  }, [MarketsTags, filterEmpty]);
+  }, [MarketsTags, filterEmpty, active]);
 
   return (
     <Card height={600}>
