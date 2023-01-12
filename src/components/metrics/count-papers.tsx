@@ -16,9 +16,10 @@ const CountPaper: FC<Props> = ({ count, label, subtitle, big }) => (
   <Card
     textAlign="center"
     _hover={{
-      scale: 1.3,
+      scale: 1.5,
       bg: "blue.500",
     }}
+    big={big}
   >
     <Flex h="full" direction="column" justify="center" align="center">
       <Flex>
@@ -31,7 +32,7 @@ const CountPaper: FC<Props> = ({ count, label, subtitle, big }) => (
         )}
       </Flex>
 
-      <Text mt={2} fontSize="md" color="whiteAlpha.600">
+      <Text mt={2} fontSize="md" color="whiteAlpha.600" fontWeight="bold">
         {label}
       </Text>
       {subtitle && (

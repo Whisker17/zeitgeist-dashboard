@@ -22,8 +22,16 @@ const Users: FC = () => {
     undefined
   );
 
+  const yesterday = new Date(
+    Date.now() -
+      1 * 864e5 -
+      new Date(Date.now() - 1 * 864e5).getTimezoneOffset() * 6e4
+  )
+    .toISOString()
+    .split("T")[0];
+
   useEffect(() => {
-    MetricsApi.fetchAddressCount().then(setAddressCount);
+    MetricsApi.fetchAddressCount(yesterday).then(setAddressCount);
   });
 
   return (

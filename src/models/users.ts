@@ -1,6 +1,7 @@
 import { diffs } from "./utils";
 
 export interface user {
+  total?: number;
   active: number;
   users: number;
   day: string;

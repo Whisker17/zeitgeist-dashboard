@@ -21,10 +21,10 @@ interface Props {
 
 const StatPaper: FC<Props> = ({ count, label, diff, subtitle, big }) => (
   <Stat textAlign="center" justifyContent={"center"}>
-    <Card h="full">
+    <Card h="full" big={big}>
       {/* Need to check if diff is null */}
       {count ? (
-        <Flex justifyContent={"center"}>
+        <Flex justifyContent={"center"} textAlign="center" mt={big ? 7 : 0}>
           <Text
             fontSize={big ? "3xl" : "2xl"}
             fontWeight="bold"
@@ -55,7 +55,7 @@ const StatPaper: FC<Props> = ({ count, label, diff, subtitle, big }) => (
         <Spinner h="30px" w="30px" />
       )}
 
-      <Text mt={2} fontSize="md" color="whiteAlpha.600">
+      <Text mt={2} fontSize="md" color="whiteAlpha.600" fontWeight="bold">
         {label}
       </Text>
       {subtitle && (

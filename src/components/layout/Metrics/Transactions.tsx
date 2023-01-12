@@ -11,10 +11,10 @@ import TransactionsPaper from "../../metrics/transactions-papers";
 import Title from "../Title";
 
 const Transactions: FC = () => {
-  const [TVL, setTVL] = useState<number | undefined>(undefined);
+  const [TxCount, setTxCount] = useState<number | undefined>(undefined);
 
   useEffect(() => {
-    MetricsApi.fetchTotalLiquidity().then(setTVL);
+    MetricsApi.fetchTransactionsCount().then(setTxCount);
   });
 
   return (
@@ -26,7 +26,7 @@ const Transactions: FC = () => {
       {/* Stats */}
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 2 }} spacing={200} mb={8}>
         <Box w={400}>
-          <CountPaper count={36694} label={`Total Transactions`} />
+          <CountPaper count={TxCount} label={`Total Transactions`} />
         </Box>
         <Box>
           <CountPaper count={2} label={`Change`} />

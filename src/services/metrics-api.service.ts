@@ -7,15 +7,16 @@ import * as d3 from "d3";
 import { create, mainnetIndexer } from "@zeitgeistpm/sdk-next";
 import Decimal from "decimal.js";
 import { gql, GraphQLClient } from "graphql-request";
+import { TokenInfos } from "../models/overviews";
 
 const ZEITGEIST_RPC_URL = "wss://ws-internal.zeitgeist.pm";
 const ZEITGEIST_GQL_URL = "https://processor.zeitgeist.pm/graphql";
-const ZEITGEIST_SUBSCAN_URL = "https://zeitgeist.api.subscan.io/";
-const ZEITGEIST_API_URL = "https://api.zeitgeist.pm/";
+const ZEITGEIST_SUBSCAN_URL = "https://zeitgeist.api.subscan.io";
+const ZEITGEIST_API_URL = "https://api.zeitgeist.pm";
 // TODO
 // Need to integrate these apis to ours
 const ZEITGEIST_PRO_URL = "https://pro-api.zeitgeist.pm";
-const NPM_REGISTRY_URL = "https://api.npmjs.org/downloads/";
+const NPM_REGISTRY_URL = "https://api.npmjs.org/downloads";
 
 // Todo
 // Need to implement this api by using our api
@@ -68,43 +69,102 @@ const fetchTotalLiquidity = async (): Promise<number> => {
   return total.div(10 ** 10).toNumber();
 };
 
-const fetchAddressCount = (): Promise<UsersWithDiffs> => {
-  let total = 0;
-  const dataSource =
-    "https://raw.githubusercontent.com/Whisker17/zeitgeist-dashboard/test/data/charts/Daily-Active-Account.csv";
-  return d3
-    .csv(dataSource)
-    .then(function (data) {
-      const res: UsersWithDiffs = {} as UsersWithDiffs;
-      const uss: user[] = [];
-      data.forEach((index) => {
-        if (
-          index.Active !== undefined &&
-          index.New !== undefined &&
-          index.Date !== undefined
-        ) {
-          uss.push({
-            users: Number(index.New),
-            day: index.Date,
-            active: Number(index.Active),
-          });
-          total += Number(index.New);
+const fetchAddressCount = async (date: String): Promise<UsersWithDiffs> => {
+  const user = new Array<user>();
+  const active = await fetch(`${ZEITGEIST_SUBSCAN_URL}/api/scan/daily`, {
+    method: "POST",
+    headers: {
+      "x-api-keys": String(process.env.SUBSCAN_API_KEY),
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Headers":
+        "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Allow-Method, Access-Control-Request-Headers",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": "true",
+      "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
+    },
+    body: JSON.stringify({
+      start: "2022-06-15",
+      end: `${date}`,
+      format: "day",
+      category: "ActiveAccount",
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) throw new Error(response.statusText);
+      return response.json();
+    })
+    .then((response: any) => {
+      response.data.list.forEach((value: any) => {
+        user.push({
+          day: value.time_utc.slice(0, 10),
+          active: value.total,
+          users: 0,
+          total: 0,
+        });
+      });
+      return user;
+    })
+    .catch((error) => {
+      console.log(error);
+      return new Array<user>();
+    });
+
+  const newAccount = await fetch(`${ZEITGEIST_SUBSCAN_URL}/api/scan/daily`, {
+    method: "POST",
+    headers: {
+      "x-api-keys": String(process.env.SUBSCAN_API_KEY),
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Headers":
+        "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Allow-Method, Access-Control-Request-Headers",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": "true",
+      "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
+    },
+    body: JSON.stringify({
+      start: "2022-06-15",
+      end: `${date}`,
+      format: "day",
+      category: "NewAccount",
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) throw new Error(response.statusText);
+      return response.json();
+    })
+    .then((response: any) => {
+      response.data.list.forEach((value: any, index: number) => {
+        active[index].users = value.total;
+        if (index == 0) {
+          active[index].total = value.total;
+        } else {
+          active[index].total = active[index - 1].total + value.total;
         }
       });
-      res.diffs = getDiffs(uss);
-      res.users = uss;
-      res.total = total;
+      return active;
+    })
+    .then(function (data: user[]) {
+      const res: UsersWithDiffs = { total: 0 } as UsersWithDiffs;
+
+      res.diffs = getDiffs(data);
+      res.users = data;
+      res.total = data[data.length - 1].total!;
       return res;
     })
     .then((res) => {
       return res;
     });
+  return newAccount;
 };
 
 const fetchTransactionsCount = (): Promise<number> => {
   return fetch(`${ZEITGEIST_SUBSCAN_URL}/api/scan/metadata`, {
     headers: {
       "x-api-keys": String(process.env.SUBSCAN_API_KEY),
+      "Access-Control-Allow-Headers":
+        "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Allow-Method, Access-Control-Request-Headers",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": "true",
+      "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
     },
   })
     .then((response: Response) => {
@@ -112,11 +172,49 @@ const fetchTransactionsCount = (): Promise<number> => {
       return response.json();
     })
     .then((response) => {
-      return response;
+      return response.data.count_transfer;
     })
     .catch((error) => {
       console.log(error);
       return 0;
+    });
+};
+
+const fetchTokenInfos = (): Promise<TokenInfos> => {
+  const token: TokenInfos = {} as TokenInfos;
+  return fetch(`${ZEITGEIST_SUBSCAN_URL}/api/scan/token`, {
+    headers: {
+      "x-api-keys": String(process.env.SUBSCAN_API_KEY),
+      "Access-Control-Allow-Headers":
+        "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Allow-Method, Access-Control-Request-Headers",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": "true",
+      "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
+    },
+  })
+    .then((response: any) => {
+      if (!response.ok) throw new Error(response.statusText);
+      return response.json();
+    })
+    .then((response) => {
+      const ztg = response.data.detail.ZTG;
+      token.price = Number(ztg.price);
+      token.price_change = Number(ztg.price_change);
+      token.total_issuance = Number(ztg.total_issuance) / 10 ** 10;
+      token.free_balance = Number(ztg.free_balance) / 10 ** 10;
+      token.available_balance = Number(ztg.available_balance) / 10 ** 10;
+      token.locked_balance = Number(ztg.locked_balance) / 10 ** 10;
+      token.reserved_balance = Number(ztg.reserved_balance) / 10 ** 10;
+      token.bonded_locked_balance =
+        Number(ztg.bonded_locked_balance) / 10 ** 10;
+      token.democracy_locked_balance =
+        Number(ztg.democracy_locked_balance) / 10 ** 10;
+      token.vesting_balance = Number(ztg.vesting_balance) / 10 ** 10;
+      return token;
+    })
+    .catch((error) => {
+      console.log(error);
+      return {} as TokenInfos;
     });
 };
 
@@ -196,6 +294,7 @@ export const MetricsApi = {
   fetchTotalLiquidity,
   fetchAddressCount,
   fetchTransactionsCount,
+  fetchTokenInfos,
   fetchAPPCounts,
   fetchNpmDownloads,
   fetchTags,
