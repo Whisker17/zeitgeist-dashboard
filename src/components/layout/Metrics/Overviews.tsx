@@ -1,7 +1,7 @@
 import { Box, HStack, Link, VStack, SimpleGrid, Text } from "@chakra-ui/layout";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
-import { TokenInfos } from "../../../models/overviews";
+import { Price, TokenInfos } from "../../../models/overviews";
 import { MetricsApi } from "../../../services/metrics-api.service";
 
 import CountPaper from "../../metrics/count-papers";
@@ -12,8 +12,10 @@ const Overviews: FC = () => {
   const [TokenInfos, setTokenInfos] = useState<TokenInfos | undefined>(
     undefined
   );
+  const [Price, setPrice] = useState<Price | undefined>(undefined);
 
   useEffect(() => {
+    MetricsApi.fetchPrice().then(setPrice);
     MetricsApi.fetchTokenInfos().then(setTokenInfos);
   });
 
@@ -31,9 +33,9 @@ const Overviews: FC = () => {
           big={true}
         />
         <StatPaper
-          count={TokenInfos?.price}
+          count={Price?.price}
           label={`Price`}
-          diff={TokenInfos?.price_change}
+          diff={Price?.change}
           big={true}
         />
         <CountPaper count={"Soon"} label={`APY`} big={true} />
@@ -45,11 +47,15 @@ const Overviews: FC = () => {
           big={true}
         />
         <CountPaper
-          count={TokenInfos?.available_balance}
-          label={`Available Token`}
+          count={TokenInfos?.circulation_balance}
+          label={`Total Circulation`}
           big={true}
         />
-        <CountPaper count={"Soon"} label={`Inflation`} big={true} />
+        <CountPaper
+          count={TokenInfos?.inflation}
+          label={`Inflation`}
+          big={true}
+        />
         <CountPaper
           count={TokenInfos?.vesting_balance}
           label={`Vesting Token`}

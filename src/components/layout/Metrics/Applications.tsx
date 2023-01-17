@@ -7,9 +7,6 @@ import {
   Text,
   Flex,
 } from "@chakra-ui/layout";
-import { Skeleton } from "@chakra-ui/react";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { MetricsApi } from "../../../services/metrics-api.service";

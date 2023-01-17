@@ -9,4 +9,6 @@ export interface TokenInfos {
   bonded_locked_balance: number;
   democracy_locked_balance: number;
   vesting_balance: number;
+  inflation?: string;
+  circulation_balance?: number;
 }

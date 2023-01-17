@@ -1,5 +1,5 @@
 import { Box, Flex, HStack, Text, VStack, Link } from "@chakra-ui/layout";
-import { cssVar, Skeleton } from "@chakra-ui/react";
+import { Skeleton } from "@chakra-ui/react";
 import { useTheme } from "@emotion/react";
 import { brands, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,11 +17,10 @@ import {
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
-import * as d3 from "d3";
 
 import Card from "../card/Card";
 import CardContentLoading from "../card/CardContentLoading";
-import { Users, UsersChart } from "../../models/users";
+import { Users, UsersChart, UsersWithDiffs } from "../../models/users";
 import { toUsersChart } from "../../services/users.service";
 
 ChartJS.register(
@@ -37,40 +36,20 @@ ChartJS.register(
 
 interface Props {
   label: string;
+  us: UsersWithDiffs;
 }
 
-const UsersPaper: FC<Props> = ({ label }) => {
+const UsersPaper: FC<Props> = ({ label, us }) => {
   const theme = useTheme();
   const [values, setValues] = useState<UsersChart>();
   const [users, setUsers] = useState<Users>();
   const [cumulative, setCumulative] = useState(false);
 
   useEffect(() => {
-    const dataSource =
-      "https://raw.githubusercontent.com/Whisker17/zeitgeist-dashboard/test/data/charts/Daily-Active-Account.csv";
-    d3.csv(dataSource)
-      .then(function (data) {
-        const res: Users = {} as Users;
-        const uss: { active: number; users: number; day: string }[] = [];
-        data.forEach((index) => {
-          if (
-            index.Active !== undefined &&
-            index.New !== undefined &&
-            index.Date !== undefined
-          ) {
-            uss.push({
-              users: Number(index.New),
-              day: index.Date,
-              active: Number(index.Active),
-            });
-          }
-        });
-        res.label = label;
-        res.users = uss;
-        return res;
-      })
-      .then((res) => setUsers(res));
-  }, [label]);
+    if (us !== undefined) {
+      setUsers({ label: label, users: us.users } as Users);
+    }
+  }, [label, us]);
 
   useEffect(() => {
     if (users !== undefined) {

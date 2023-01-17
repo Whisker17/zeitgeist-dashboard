@@ -16,22 +16,15 @@ import UsersPaper from "../../metrics/users-paper";
 import Title from "../Title";
 import { UsersWithDiffs } from "../../../models/users";
 import StatPaper from "../../metrics/stat-papers";
+import { getYesterday } from "../../../services/number.service";
 
 const Users: FC = () => {
   const [addressCount, setAddressCount] = useState<UsersWithDiffs | undefined>(
     undefined
   );
 
-  const yesterday = new Date(
-    Date.now() -
-      1 * 864e5 -
-      new Date(Date.now() - 1 * 864e5).getTimezoneOffset() * 6e4
-  )
-    .toISOString()
-    .split("T")[0];
-
   useEffect(() => {
-    MetricsApi.fetchAddressCount(yesterday).then(setAddressCount);
+    MetricsApi.fetchAddressCount(getYesterday()).then(setAddressCount);
   });
 
   return (
@@ -51,7 +44,7 @@ const Users: FC = () => {
         </Box>
         <Box w={400}>
           <StatPaper
-            count={addressCount?.users[addressCount.users.length - 1].active}
+            count={addressCount?.users[addressCount?.users.length - 1].active}
             label={`Active Addresses`}
             diff={addressCount?.diffs.diffsForActive.day}
           />
@@ -60,7 +53,7 @@ const Users: FC = () => {
       {/* Chart */}
       <SimpleGrid columns={{ sm: 1, md: 4, lg: 2 }} spacing={100} mb={8}>
         <Box w={1000} mt={8}>
-          <UsersPaper label="Users" />
+          <UsersPaper label="Users" us={addressCount!} />
         </Box>
       </SimpleGrid>
     </VStack>

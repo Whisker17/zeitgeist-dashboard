@@ -21,8 +21,13 @@ import * as d3 from "d3";
 
 import Card from "../card/Card";
 import CardContentLoading from "../card/CardContentLoading";
-import { Transactions, TransactionsChart } from "../../models/transactions";
+import {
+  Transactions,
+  TransactionsChart,
+  TransactionsWithoutLabel,
+} from "../../models/transactions";
 import { toTransactionsChart } from "../../services/transaction.service";
+import { MetricsApi } from "../../services/metrics-api.service";
 
 ChartJS.register(
   Filler,
@@ -37,32 +42,20 @@ ChartJS.register(
 
 interface Props {
   label: string;
+  txLists: TransactionsWithoutLabel;
 }
 
-const TransactionsPaper: FC<Props> = ({ label }) => {
+const TransactionsPaper: FC<Props> = ({ label, txLists }) => {
   const theme = useTheme();
   const [values, setValues] = useState<TransactionsChart>();
   const [transactions, setTransactions] = useState<Transactions>();
   const [cumulative, setCumulative] = useState(false);
 
   useEffect(() => {
-    const dataSource =
-      "https://raw.githubusercontent.com/Whisker17/zeitgeist-dashboard/test/data/charts/Daily-Extrinsic-Number.csv";
-    d3.csv(dataSource)
-      .then(function (data) {
-        const res: Transactions = {} as Transactions;
-        const txs: { txs: number; day: string }[] = [];
-        data.forEach((index) => {
-          if (index.Value !== undefined && index.Date !== undefined) {
-            txs.push({ txs: Number(index.Value), day: index.Date });
-          }
-        });
-        res.label = label;
-        res.txs = txs;
-        return res;
-      })
-      .then((res) => setTransactions(res));
-  }, [label]);
+    if (txLists !== undefined) {
+      setTransactions({ label: label, txs: txLists.txs });
+    }
+  }, [label, txLists]);
 
   useEffect(() => {
     if (transactions !== undefined) {
@@ -189,8 +182,29 @@ const TransactionsPaper: FC<Props> = ({ label }) => {
                   fill: true,
                   borderWidth: 2,
                   tension: 0.4,
-                  label: label,
+                  label: "Txs",
                   data: values.txs.map((week) => week.txs),
+                  borderColor(context) {
+                    const { chart } = context;
+                    const { ctx, chartArea } = chart;
+
+                    if (!chartArea) {
+                      // Initial chart load
+                      return;
+                    }
+                    // eslint-disable-next-line consistent-return
+                    return getGradient(ctx, chartArea);
+                  },
+                  // eslint-disable-next-line @typescript-eslint/dot-notation
+                  // backgroundColor: `${theme["__cssMap"]["colors.brand.900"].value}80`,
+                  backgroundColor: "transparent",
+                },
+                {
+                  fill: true,
+                  borderWidth: 2,
+                  tension: 0.4,
+                  label: "Transfer Amount",
+                  data: values.txs.map((week) => week.amount),
                   borderColor(context) {
                     const { chart } = context;
                     const { ctx, chartArea } = chart;

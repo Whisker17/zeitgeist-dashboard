@@ -14,7 +14,7 @@ import Card from "../card/Card";
 interface Props {
   count: number | string | undefined;
   label: string;
-  diff?: number;
+  diff?: number | string;
   subtitle?: string;
   big?: boolean;
 }
